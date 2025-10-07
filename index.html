@@ -383,7 +383,7 @@ document.getElementById("calcEstimate").addEventListener("click",()=>{
 function generateSummary(){
  const f=document.getElementById("walkthroughForm");
  const data=new FormData(f);
- let html=`<h3 style='color:#0056D2;margin-top:0'>A TO Z CLEANING EXPERT LTD. – Walkthrough Summary</h3>`;
+ let html=`<h3 style='color:#0056D2;margin-top:0'>A TO Z CLEANING EXPERT LTD. – Assessment Summary</h3>`;
  html+=`<p><strong>Assessor:</strong> ${f.assessorName.value||"N/A"}<br>
  <strong>Date:</strong> ${new Date().toLocaleDateString()}</p><hr>`;
  data.forEach((v,k)=>{if(v)html+=`<p><strong>${k.replace(/([A-Z])/g," $1")
@@ -442,5 +442,3 @@ document.getElementById("emailGmail").addEventListener("click",()=>{
 </script>
 </body>
 </html>
-
-<
