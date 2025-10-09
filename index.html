@@ -342,9 +342,145 @@ footer{
  PART 2 — Steps 6–10 + Summary + PDF + Gmail + Backup + Lightbox
 =============================================================== -->
 
-<!-- …(Steps 6–10 as in your previous version)… -->
-<!-- We’ll close out the file now with logic + footer + lightbox -->
+<!-- STEP 6 -->
+<section id="step6">
+  <h2><i class="fa fa-users"></i> Occupancy & Usage</h2>
+  <label for="avgOccupancy">Average Daily Occupancy</label>
+  <input type="number" id="avgOccupancy" name="avgOccupancy" min="0">
+  <label for="peakHours">Peak Usage Hours</label>
+  <input type="text" id="peakHours" name="peakHours">
+  <label for="eventFrequency">Special Event Frequency</label>
+  <select id="eventFrequency" name="eventFrequency">
+    <option value="">Select</option>
+    <option>Rarely (less than once a month)</option>
+    <option>Monthly</option><option>Weekly</option><option>Daily</option>
+  </select>
+  <div class="nav-buttons">
+    <button type="button" id="prev6">Previous</button>
+    <button type="button" id="next6">Next</button>
+  </div>
+</section>
 
+<!-- STEP 7 -->
+<section id="step7">
+  <h2><i class="fa fa-broom"></i> Cleaning Scope & Operational Details</h2>
+  <label for="trashHandling">Trash Removal Responsibility</label>
+  <select id="trashHandling" name="trashHandling">
+    <option value="">Select</option>
+    <option>Client handles waste disposal</option>
+    <option>Cleaning team removes all trash</option>
+    <option>Shared responsibility</option>
+  </select>
+  <label for="consumables">Restroom Consumables Supply</label>
+  <select id="consumables" name="consumables">
+    <option value="">Select</option>
+    <option>Client-supplied</option>
+    <option>Cleaning contractor-supplied</option>
+  </select>
+  <label for="disinfectionAreas">High-Touch / Disinfection Focus Areas</label>
+  <textarea id="disinfectionAreas" name="disinfectionAreas" rows="2"></textarea>
+  <label for="onSiteEquipment">On-Site Cleaning Equipment Available</label>
+  <textarea id="onSiteEquipment" name="onSiteEquipment" rows="2"></textarea>
+  <label for="storageSpace">Storage Space Available for Supplies</label>
+  <div class="addon-grid">
+    <div class="addon-item"><input type="radio" name="storageSpace" value="Yes"><label>Yes</label></div>
+    <div class="addon-item"><input type="radio" name="storageSpace" value="Limited"><label>Limited</label></div>
+    <div class="addon-item"><input type="radio" name="storageSpace" value="No"><label>No</label></div>
+  </div>
+  <label for="waterAccess">Water Access & Drain Availability</label>
+  <select id="waterAccess" name="waterAccess">
+    <option value="">Select</option>
+    <option>Readily available</option>
+    <option>Limited access</option>
+    <option>No on-site access</option>
+  </select>
+  <div class="nav-buttons">
+    <button type="button" id="prev7">Previous</button>
+    <button type="button" id="next7">Next</button>
+  </div>
+</section>
+
+<!-- STEP 8 -->
+<section id="step8">
+  <h2><i class="fa fa-clipboard-list"></i> Compliance & Sustainability</h2>
+  <label for="insuranceReq">Insurance Requirements</label>
+  <select id="insuranceReq" name="insuranceReq">
+    <option value="">Select</option>
+    <option>WSIB Certificate Required</option>
+    <option>General Liability Insurance Required</option>
+    <option>Both</option><option>Not Required</option>
+  </select>
+  <label for="checkIn">Preferred Supervision / Check-in Method</label>
+  <select id="checkIn" name="checkIn">
+    <option value="">Select</option>
+    <option>Sign-in Sheet</option><option>Photo Proof via App</option><option>Verbal Confirmation</option>
+  </select>
+  <label for="compliance">Compliance Standards</label>
+  <select id="compliance" name="compliance">
+    <option value="">Select</option>
+    <option>ISO 9001</option><option>GMP / Food Safety</option>
+    <option>LEED Certification</option><option>Other</option>
+  </select>
+  <label for="ecoFriendly">Use of Eco-Friendly Cleaning Products?</label>
+  <select id="ecoFriendly" name="ecoFriendly">
+    <option value="">Select</option>
+    <option>Yes, mandatory</option><option>Preferred if available</option><option>No preference</option>
+  </select>
+  <label for="fragranceRestriction">Fragrance / Chemical Restrictions</label>
+  <select id="fragranceRestriction" name="fragranceRestriction">
+    <option value="">Select</option>
+    <option>Fragrance-Free Only</option><option>Low-VOC</option><option>No Restrictions</option>
+  </select>
+  <div class="nav-buttons">
+    <button type="button" id="prev8">Previous</button>
+    <button type="button" id="next8">Next</button>
+  </div>
+</section>
+
+<!-- STEP 9 — Dynamic Pricing Estimator -->
+<section id="step9">
+  <h2><i class="fa fa-calculator"></i> Dynamic Monthly Pricing Estimator</h2>
+  <p>Estimate your monthly cleaning cost based on hours, overhead and profit.</p>
+  <label for="hoursPerDay">Hours Worked per Day</label><input type="number" id="hoursPerDay" step="0.1">
+  <label for="daysPerWeek">Days Worked per Week</label><input type="number" id="daysPerWeek" step="1">
+  <label for="hourlyRate">Employee Hourly Rate (CAD)</label><input type="number" id="hourlyRate" step="0.01" placeholder="e.g. 25.00">
+  <label for="overhead">Overhead Cost (%)</label><input type="number" id="overhead" step="0.1" placeholder="%">
+  <label for="salesTax">Sales Tax (%)</label><input type="number" id="salesTax" step="0.1" placeholder="%">
+  <label for="profit">Profit (%)</label><input type="number" id="profit" step="0.1" placeholder="%">
+
+  <div id="calcResults" style="margin-top:15px;padding:15px;border:1px solid #E5E7EB;border-radius:6px;background:#F9FAFB;display:none;">
+    <h3 style="margin-top:0;color:#0056D2;">Estimated Monthly Breakdown</h3>
+    <p><strong>Labor Cost:</strong> <span id="laborCost">$0.00</span></p>
+    <p><strong>Payroll Tax (10%):</strong> <span id="payrollTax">$0.00</span></p>
+    <p><strong>Profit Amount:</strong> <span id="profitAmount">$0.00</span></p>
+    <p><strong>Sales Tax Amount:</strong> <span id="salesTaxAmount">$0.00</span></p>
+    <hr><p><strong>Total Before Tax:</strong> <span id="totalBeforeTax">$0.00</span></p>
+    <p><strong>Total After Tax:</strong> <span id="totalAfterTax">$0.00</span></p>
+  </div>
+
+  <div class="nav-buttons">
+    <button type="button" id="prev9">Previous</button>
+    <button type="button" id="calcEstimate"><i class="fa fa-calculator"></i> Calculate</button>
+    <button type="button" id="next9">Next</button>
+  </div>
+</section>
+
+<!-- STEP 10 — Review + PDF + Backup -->
+<section id="step10">
+  <h2><i class="fa fa-eye"></i> Review & Export Summary</h2>
+  <div id="summaryContent" style="background:#F9FAFB;border:1px solid #E5E7EB;border-radius:8px;padding:15px;margin-bottom:20px;"></div>
+  <div class="nav-buttons">
+    <button type="button" id="prev10">Previous</button>
+    <button type="button" id="downloadPDF"><i class="fa fa-file-pdf"></i> Download PDF</button>
+    <button type="button" id="emailGmail"><i class="fa fa-envelope"></i> Email via Gmail</button>
+  </div>
+  <div class="nav-buttons">
+    <button type="button" id="exportJSON"><i class="fa fa-download"></i> Backup (JSON)</button>
+    <input type="file" id="importJSON" accept="application/json" hidden>
+    <button type="button" id="importBtn"><i class="fa fa-upload"></i> Import Backup</button>
+  </div>
+</section>
+  
 </form>
 </main>
 <footer>© 2025 A TO Z Cleaning Expert Ltd. — All rights reserved.</footer>
