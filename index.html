@@ -1,740 +1,1319 @@
-<!-- ============================================================
-A TO Z Cleaning Expert Ltd. — Internal Site Assessment & Client Walkthrough Report
-Version: v4.2 Polished | Responsive | Validation | Dark Mode | Backup | PDF Export | Lightbox
-=============================================================== -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>A TO Z Cleaning Expert Ltd. — Internal Site Assessment & Client Walkthrough Report</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-store" />
+<title>A TO Z Cleaning Expert Ltd. — Walkthrough & Estimator Tool (v4.1 Final)</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
+/* ============================================================
+   A TO Z CLEANING EXPERT LTD. — WALKTHROUGH & ESTIMATOR TOOL
+   Version: v4.1 Final Unified (Light Mode Default)
+   ============================================================ */
+
+/* ---------- ROOT THEME ---------- */
 :root {
-  --primary:#0056D2; --accent:#00C2FF;
-  --background:#F9FAFB; --surface:#fff;
-  --text:#1E1E1E; --muted:#6B7280; --border:#E5E7EB;
+  --primary: #004AAD;
+  --accent: #00C2FF;
+  --background: #F9FAFB;
+  --surface: #FFFFFF;
+  --text: #1E1E1E;
+  --border: #E5E7EB;
+  --success: #00A36C;
+  --warning: #E0A500;
+  --danger: #E63B3B;
 }
+
 body.dark {
-  --background:#1E1E2F; --surface:#2B2B3C;
-  --text:#F3F4F6; --border:#3A3A4A;
+  --background: #1E1E2F;
+  --surface: #2B2B3C;
+  --text: #F3F4F6;
+  --border: #3C3C4A;
 }
 
-/* Core reset */
-*{box-sizing:border-box;margin:0;padding:0;}
+/* ---------- GLOBAL STYLING ---------- */
 body {
-  font-family:'Poppins',sans-serif;
-  background:var(--background);
-  color:var(--text);
-  display:flex;flex-direction:column;min-height:100vh;
-  transition:background .3s,color .3s;
+  font-family: 'Poppins', sans-serif;
+  background: var(--background);
+  color: var(--text);
+  margin: 0;
+  padding: 0;
+  transition: background 0.3s, color 0.3s;
 }
 
-/* Header */
-header{
-  display:flex;align-items:center;justify-content:space-between;
-  background:var(--surface);padding:12px 25px;
-  border-bottom:1px solid var(--border);
-  box-shadow:0 2px 6px rgba(0,0,0,.05);
+h1, h2, h3, h4, h5 {
+  margin: 0 0 10px;
+  font-weight: 600;
+  color: var(--primary);
 }
-.header-left{display:flex;align-items:center;gap:15px;}
-header img{height:60px;object-fit:contain;}
-.header-text h1{margin:0;font-size:1.3rem;color:var(--primary);font-weight:600;line-height:1.2;}
-.header-text p{margin:2px 0 0;color:var(--muted);font-size:.9rem;line-height:1.2;}
-#darkToggle{
-  background:none;border:none;color:var(--primary);
-  font-size:1.2rem;cursor:pointer;transition:transform .2s;
-}
-#darkToggle:hover{transform:scale(1.1);}
-
-/* Progress bar */
-#progressWrapper{margin:15px 10%;}
-#progressLabel{display:flex;justify-content:space-between;font-size:.9rem;color:var(--muted);margin-bottom:5px;}
-#progressContainer{background:#e5e7eb;border-radius:20px;height:10px;overflow:hidden;}
-#progressBar{height:100%;background:linear-gradient(90deg,var(--primary),var(--accent));width:0%;transition:width .3s ease;}
-
-/* Main */
-main{flex:1;width:100%;padding:30px 10%;background:var(--surface);}
-section{display:none;}
-section.active{display:block;animation:fade .4s;}
-@keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
-label{display:block;margin:10px 0 5px;font-weight:500;}
-input,select,textarea{
-  width:100%;padding:9px 10px;border:1px solid var(--border);
-  border-radius:6px;background:var(--surface);font-size:.95rem;color:var(--text);
-}
-textarea{resize:vertical;}
-input:invalid,select:invalid,textarea:invalid{border-color:#e11d48;}
-button{
-  background:var(--primary);color:#fff;border:none;border-radius:6px;
-  padding:10px 18px;font-size:.95rem;font-weight:500;cursor:pointer;
-  transition:.25s ease;box-shadow:0 2px 5px rgba(0,0,0,.1);
-}
-button:hover{background:#0042A2;}
-.nav-buttons{display:flex;justify-content:space-between;margin-top:30px;margin-bottom:40px;}
-.addon-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin-top:8px;}
-.addon-item{display:flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid var(--border);border-radius:6px;background:#fdfdfd;}
-.addon-item input{transform:scale(1.1);}
-
-/* Inspection area styling */
-.inspection-area{margin-bottom:25px;border:1px solid var(--border);padding:15px;border-radius:8px;background:var(--surface);}
-.inspection-area h3{color:var(--primary);margin-bottom:8px;}
-.photo-preview{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;}
-.photo-preview img{width:100px;height:100px;object-fit:cover;border-radius:6px;border:1px solid #ccc;cursor:pointer;transition:transform .2s;}
-.photo-preview img:hover{transform:scale(1.05);}
-
-/* Footer */
-footer{
-  flex-shrink:0;text-align:center;font-size:.85rem;color:#fff;
-  background:linear-gradient(90deg,var(--primary),var(--accent));
-  padding:15px 0;margin-top:auto;box-shadow:0 -2px 6px rgba(0,0,0,.05);
+p {
+  margin: 0 0 10px;
+  line-height: 1.6;
 }
 
-/* Toast */
-#saveToast{
-  position:fixed;top:15px;right:15px;background:var(--primary);color:#fff;
-  padding:8px 14px;border-radius:6px;font-size:.85rem;display:none;
-  box-shadow:0 2px 6px rgba(0,0,0,.2);z-index:1000;
+/* ---------- HEADER ---------- */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 25px;
+  background: var(--surface);
+  border-bottom: 2px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.header-content img {
+  height: 55px;
+  width: auto;
+}
+.header-text h1 {
+  font-size: 1.2rem;
+  color: var(--primary);
+}
+.header-text p {
+  font-size: 0.9rem;
+  color: var(--text);
+}
+#darkToggle {
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-size: 1.2rem;
+  cursor: pointer;
 }
 
-/* -------- Polish Tip: clean image look -------- */
-#summaryContent img, .photo-preview img {
-  background:#fff;
-  box-shadow:0 1px 3px rgba(0,0,0,0.1);
-  transition:transform .2s ease;
+/* ---------- MAIN FORM ---------- */
+main {
+  max-width: 1100px;
+  margin: 20px auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 25px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
-#summaryContent img:hover, .photo-preview img:hover {
-  transform:scale(1.02);
-  cursor:pointer;
+section {
+  display: none;
+}
+section.active {
+  display: block;
 }
 
-/* -------- Lightbox Viewer + navigation -------- */
-#lightboxOverlay {
-  position:fixed;top:0;left:0;width:100%;height:100%;
-  background:rgba(0,0,0,0.85);
-  display:none;align-items:center;justify-content:center;
-  z-index:9999;overflow:hidden;
+/* ---------- PROGRESS BAR ---------- */
+#progressText {
+  text-align: right;
+  font-size: 0.9rem;
+  color: var(--primary);
+  margin-bottom: 8px;
 }
-#lightboxContent {
-  max-width:90%;max-height:90%;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
+#progressContainer {
+  background: #E5E7EB;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 25px;
 }
+#progressBar {
+  background: var(--accent);
+  height: 8px;
+  width: 0%;
+  transition: width 0.4s ease;
+}
+
+/* ---------- FORM INPUTS ---------- */
+label {
+  display: block;
+  font-weight: 500;
+  margin: 10px 0 5px;
+}
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="tel"],
+input[type="date"],
+textarea,
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 0.95rem;
+}
+textarea { resize: vertical; }
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--accent);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0,194,255,0.15);
+}
+
+/* ---------- BUTTONS ---------- */
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+button:hover { opacity: 0.9; }
+
+.nav-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.nav-buttons button {
+  background: var(--primary);
+  color: #fff;
+}
+
+.reset-btn {
+  background: var(--danger);
+  color: #fff;
+}
+
+.secondary-btn {
+  background: #9CA3AF;
+  color: #fff;
+}
+
+/* ---------- GENERATE QUOTE BUTTON ---------- */
+#genQuote {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 14px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-top: 10px;
+  width: 100%;
+  height: 34px;
+  cursor: pointer;
+  transition: background 0.25s ease;
+}
+#genQuote:hover {
+  background: #00a9e5;
+}
+
+
+/* ---------- PHOTO GRID ---------- */
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: 6px;
+  margin-top: 10px;
+}
+.photo-grid img {
+  width: 100%;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  cursor: pointer;
+}
+
+/* ---------- LIGHTBOX ---------- */
+#photoLightbox {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.9);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+#photoLightbox.active { display: flex; }
 #lightboxImg {
-  width:auto;max-width:100%;
-  height:auto;max-height:90vh;
-  border-radius:8px;
-  box-shadow:0 4px 15px rgba(0,0,0,0.5);
-  background:#fff;
+  max-width: 90%;
+  max-height: 80%;
+  border-radius: 10px;
 }
-.lightboxNav {
-  background:rgba(255,255,255,0.15);
-  border:none;
-  color:#fff;
-  font-size:2rem;
-  cursor:pointer;
-  padding:12px 18px;
-  border-radius:50%;
-  transition:background 0.2s;
-  position:absolute;
-  top:50%;
-  transform:translateY(-50%);
+#lightboxPrev, #lightboxNext {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2rem;
+  color: #fff;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
-#lightboxPrev { left:40px; }
-#lightboxNext { right:40px; }
-.lightboxNav:hover { background:rgba(255,255,255,0.35); }
-
-/* Caption */
+#lightboxPrev { left: 30px; }
+#lightboxNext { right: 30px; }
 #lightboxCaption {
-  color:#f0f0f0;
-  text-align:center;
-  font-size:0.95rem;
-  margin-top:10px;
-  background:rgba(0,0,0,0.5);
-  padding:6px 10px;
-  border-radius:6px;
-  max-width:90%;
-  margin-left:auto;
-  margin-right:auto;
+  position: absolute;
+  bottom: 30px;
+  color: #fff;
+  font-size: 0.95rem;
+  text-align: center;
 }
 
-@media(max-width:768px){
-  header{flex-direction:column;align-items:flex-start;gap:10px;}
-  header img{height:50px;}
-  .header-text h1{font-size:1rem;}
-  .header-text p{font-size:.8rem;}
-  main{padding:25px 5%;}
-  .lightboxNav{font-size:1.6rem;padding:8px 12px;}
-  #lightboxPrev{left:20px;} #lightboxNext{right:20px;}
+/* ---------- ESTIMATOR GRID ---------- */
+.calc-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 25px;
+  align-items: flex-start;
 }
+.calc-inputs, .calc-results {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+  background: var(--surface);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+.calc-results {
+  position: sticky;
+  top: 90px;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 900px) {
+  .calc-grid { grid-template-columns: 1fr; }
+  .calc-results { position: static; margin-top: 20px; }
+}
+
+/* ---------- PROFIT MARGIN COLOR STATES ---------- */
+.low-margin {
+  color: var(--danger);
+  font-weight: 600;
+}
+.medium-margin {
+  color: var(--warning);
+  font-weight: 600;
+}
+.high-margin {
+  color: var(--success);
+  font-weight: 600;
+}
+
+
+/* ---------- FOOTER ---------- */
+footer {
+  text-align: center;
+  color: var(--text);
+  font-size: 0.85rem;
+  padding: 20px;
+  margin-top: 40px;
+  border-top: 1px solid var(--border);
+}
+footer a { color: var(--primary); text-decoration: none; }
+
+/* ---------- GENERATE QUOTE BUTTON ---------- */
+#genQuote {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 14px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-top: 10px;
+  width: 100%;
+  height: 34px;
+  cursor: pointer;
+  transition: background 0.25s ease;
+}
+#genQuote:hover {
+  background: #00a9e5;
+}
+
+
 </style>
 </head>
-
 <body>
 <header>
-  <div class="header-left">
+  <div class="header-content">
     <img src="https://atozcleaningexpert.github.io/assessment/a-to-z-logo.png" alt="A TO Z Cleaning Expert Logo">
     <div class="header-text">
       <h1>A TO Z CLEANING EXPERT LTD.</h1>
-      <p>Internal Site Assessment & Client Walkthrough Report</p>
+      <p>Comprehensive Walkthrough & Estimator Tool</p>
     </div>
   </div>
-  <button id="darkToggle" title="Toggle dark mode"><i class="fa fa-moon"></i></button>
+  <button id="darkToggle" title="Toggle Dark Mode"><i class="fa fa-moon"></i></button>
 </header>
 
-<div id="progressWrapper">
-  <div id="progressLabel"><span id="progressTitle">Client Information</span><span id="progressText">Step 1 of 10</span></div>
-  <div id="progressContainer"><div id="progressBar"></div></div>
-</div>
-
-<div id="saveToast">Saved locally</div>
-
 <main>
-<form id="walkthroughForm">
-
-<!-- STEP 1 -->
-<section id="step1" class="active">
-  <h2><i class="fa fa-user-tie"></i> Client & Site Information</h2>
-  <label for="assessmentDate">Assessment Date</label>
-  <input type="date" id="assessmentDate" name="assessmentDate" required>
-  <label for="assessorName">Assessor / Representative Name</label>
-  <input type="text" id="assessorName" name="assessorName" required>
-  <label for="clientName">Client / Company Name</label>
-  <input type="text" id="clientName" name="clientName" required>
-  <label for="contactPerson">Primary Contact Person</label>
-  <input type="text" id="contactPerson" name="contactPerson">
-  <label for="email">Email</label>
-  <input type="email" id="email" name="email">
-  <label for="phone">Phone</label>
-  <input type="text" id="phone" name="phone">
-  <label for="address">Site Address</label>
-  <textarea id="address" name="address" rows="2"></textarea>
-  <label for="facilityType">Type of Facility / Site</label>
-  <select id="facilityType" name="facilityType" required>
-    <option value="">Select</option>
-    <option>Office</option><option>Retail</option><option>Medical</option>
-    <option>Industrial</option><option>School</option><option>Condominium</option>
-  </select>
-  <label for="hours">Hours of Operation (e.g., Mon–Fri 8 AM – 6 PM)</label>
-  <input type="text" id="hours" name="hours" placeholder="e.g. Mon–Fri 8 AM – 6 PM">
-  <div class="nav-buttons"><span></span><button type="button" id="next1">Next</button></div>
-</section>
-
-<!-- STEP 2 -->
-<section id="step2">
-  <h2><i class="fa fa-building"></i> Facility Overview</h2>
-  <label for="squareFootage">Total Square Footage</label>
-  <input type="number" id="squareFootage" name="squareFootage" min="0" placeholder="e.g. 10000" required>
-  <label for="floors">Number of Floors</label>
-  <input type="number" id="floors" name="floors" min="0">
-  <label>Flooring Types</label>
-  <div class="addon-grid">
-    <div class="addon-item"><input type="checkbox" name="flooring" value="Tile"><label>Tile</label></div>
-    <div class="addon-item"><input type="checkbox" name="flooring" value="Carpet"><label>Carpet</label></div>
-    <div class="addon-item"><input type="checkbox" name="flooring" value="Vinyl"><label>Vinyl</label></div>
-     <div class="addon-item"><input type="checkbox" name="flooring" value="Laminate"><label>Laminate</label></div>
-    <div class="addon-item"><input type="checkbox" name="flooring" value="Hardwood"><label>Hardwood</label></div>
-    <div class="addon-item"><input type="checkbox" name="flooring" value="Robber"><label>Robber</label></div>
-    <div class="addon-item"><input type="checkbox" name="flooring" value=" Concrete"><label>Concrete</label></div>
-    <div class="addon-item"><input type="checkbox" name="flooring" value=" Epoxy"><label>Epoxy</label></div>
-  </div>
-  
-  <label for="frequency">Cleaning Frequency</label>
-  <select id="frequency" name="frequency">
-    <option value="">Select</option>
-    <option>Weekly (1×/week)</option><option>Twice a week</option>
-    <option>Three times a week</option><option>Five times a week</option><option>Daily</option>
-  </select>
-  <label for="provider">Current Cleaning Provider (if any)</label>
-  <input type="text" id="provider" name="provider">
-  <label for="painPoints">Main Pain Points / Concerns</label>
-  <textarea id="painPoints" name="painPoints" rows="2" placeholder="e.g., inconsistent quality, missed areas"></textarea>
-  <label for="startDate">Preferred Start Date</label>
-  <input type="date" id="startDate" name="startDate" required>
-  <div class="nav-buttons"><button type="button" id="prev2">Previous</button><button type="button" id="next2">Next</button></div>
-</section>
-
-<!-- STEP 3 (multi-photo + notes + obs) -->
-<section id="step3">
-  <h2><i class="fa fa-clipboard-check"></i> Area-by-Area Inspection</h2>
-
-  <div class="inspection-area">
-    <h3>Offices / Work Areas</h3>
-    <textarea name="officeNotes" rows="2" placeholder="Describe cleanliness, clutter, damages, etc."></textarea>
-    <label>Inspection Notes / Observations</label>
-    <textarea name="officeObs" rows="2" placeholder="Additional findings or recommendations..."></textarea>
-    <label>Upload Photos (up to 3)</label>
-    <input type="file" accept="image/*" capture="environment" id="officePhotos" multiple>
-    <div id="officePreviews" class="photo-preview"></div>
+  <!-- PROGRESS BAR -->
+  <div id="progressText">Step 1 of 11</div>
+  <div id="progressContainer">
+    <div id="progressBar"></div>
   </div>
 
-  <div class="inspection-area">
-    <h3>Restrooms</h3>
-    <textarea name="restroomNotes" rows="2" placeholder="Condition of sinks, floors, mirrors..."></textarea>
-    <label>Inspection Notes / Observations</label>
-    <textarea name="restroomObs" rows="2" placeholder="Additional findings or recommendations..."></textarea>
-    <label>Upload Photos (up to 3)</label>
-    <input type="file" accept="image/*" capture="environment" id="restroomPhotos" multiple>
-    <div id="restroomPreviews" class="photo-preview"></div>
-  </div>
+  <!-- STEP 1 — CLIENT & SITE INFORMATION -->
+  <section id="step1" class="active">
+    <h2><i class="fa fa-user"></i> Step 1 — Client & Site Information</h2>
+    <p>Please fill out the client and site details to begin the walkthrough.</p>
 
-  <div class="inspection-area">
-    <h3>Break Room / Kitchen</h3>
-    <textarea name="kitchenNotes" rows="2"></textarea>
-    <label>Inspection Notes / Observations</label>
-    <textarea name="kitchenObs" rows="2"></textarea>
-    <label>Upload Photos (up to 3)</label>
-    <input type="file" accept="image/*" capture="environment" id="kitchenPhotos" multiple>
-    <div id="kitchenPreviews" class="photo-preview"></div>
-  </div>
+    <label for="assessorName">Assessor Name</label>
+    <input type="text" id="assessorName" placeholder="e.g., John Smith" required>
 
-  <div class="inspection-area">
-    <h3>Windows & Glass</h3>
-    <textarea name="windowNotes" rows="2"></textarea>
-    <label>Inspection Notes / Observations</label>
-    <textarea name="windowObs" rows="2"></textarea>
-    <label>Upload Photos (up to 3)</label>
-    <input type="file" accept="image/*" capture="environment" id="windowPhotos" multiple>
-    <div id="windowPreviews" class="photo-preview"></div>
-  </div>
+    <label for="clientName">Client / Company Name</label>
+    <input type="text" id="clientName" placeholder="e.g., ABC Holdings Inc." required>
 
-  <div class="inspection-area">
-    <h3>Floors & Carpets</h3>
-    <textarea name="floorNotes" rows="2"></textarea>
-    <label>Inspection Notes / Observations</label>
-    <textarea name="floorObs" rows="2"></textarea>
-    <label>Upload Photos (up to 3)</label>
-    <input type="file" accept="image/*" capture="environment" id="floorPhotos" multiple>
-    <div id="floorPreviews" class="photo-preview"></div>
-  </div>
+    <label for="contactPerson">Contact Person</label>
+    <input type="text" id="contactPerson" placeholder="e.g., Sarah Lee" required>
 
-  <div class="nav-buttons">
-    <button type="button" id="prev3">Previous</button>
-    <button type="button" id="next3">Next</button>
-  </div>
-</section>
+    <label for="email">Email Address</label>
+    <input type="email" id="email" placeholder="e.g., contact@example.com" required>
 
-<!-- STEP 4 -->
-<section id="step4">
-  <h2><i class="fa fa-plus-circle"></i> Specialty & Add-On Services</h2>
-  <div class="addon-grid">
-    <div class="addon-item"><input type="checkbox" name="addons" value="Post-Construction Cleaning"><label>Post-Construction Cleaning</label></div>
-    <div class="addon-item"><input type="checkbox" name="addons" value="Floor Strip & Wax"><label>Floor Strip & Wax</label></div>
-    <div class="addon-item"><input type="checkbox" name="addons" value="Carpet Extraction"><label>Carpet Extraction</label></div>
-    <div class="addon-item"><input type="checkbox" name="addons" value="High Dusting / Vents"><label>High Dusting / Vents</label></div>
-    <div class="addon-item"><input type="checkbox" name="addons" value="Window Washing"><label>Window Washing</label></div>
-    <div class="addon-item"><input type="checkbox" name="addons" value="Air Vents Vacuuming"><label>Air Vents Vacuuming</label></div>
-    <div class="addon-item"><input type="checkbox" name="addons" value="Full Wall Washing"><label>Full Wall Washing</label></div>
-    <div class="addon-item"><input type="checkbox" name="addons" value="Appliances Cleaning (Interior)"><label>Appliances Cleaning (Interior)g</label></div>
-    <div class="addon-item"><input type="checkbox" name="addons" value="Wood/Metal Polishing "><label>Wood/Metal Polishing</label></div>
-    <div class="addon-item"><input type="checkbox" name="addons" value="Spot Removal"><label>Spot Removal</label></div>
-    <div class="addon-item"><input type="checkbox" name="addons" value="Descaling Washroom Surfaces"><label>Descaling Washroom Surfaces</label></div>
-    <div class="addon-item"><input type="checkbox" name="addons" value="Track & Frame Cleaning"><label>Track & Frame Cleaning</label></div>
-  </div>
-  <div class="nav-buttons"><button type="button" id="prev4">Previous</button><button type="button" id="next4">Next</button></div>
-</section>
+    <label for="phone">Phone Number</label>
+    <input type="tel" id="phone" placeholder="e.g., +1 (613) 555-1234" required>
 
-<!-- STEP 5 -->
-<section id="step5">
-  <h2><i class="fa fa-building-columns"></i> Facility Composition</h2>
-  <label for="numRestrooms">Number of Restrooms</label><input type="number" id="numRestrooms" name="numRestrooms" min="0">
-  <label for="numKitchens">Number of Kitchens / Break Areas</label><input type="number" id="numKitchens" name="numKitchens" min="0">
-  <label for="ceilingType">Type of Ceiling</label>
-  <select id="ceilingType" name="ceilingType"><option value="">Select</option><option>Drop Tile</option><option>Drywall</option><option>Open Industrial</option></select>
-  <label for="entrances">Number of Entrances</label><input type="number" id="entrances" name="entrances" min="0">
-  <label for="cleaningHours">Allowed Cleaning Hours</label>
-  <select id="cleaningHours" name="cleaningHours"><option value="">Select</option><option>Daytime</option><option>Evening</option><option>Nighttime</option></select>
-  <div class="nav-buttons"><button type="button" id="prev5">Previous</button><button type="button" id="next5">Next</button></div>
-</section>
-<!-- ============================================================
- PART 2 — Steps 6–10 + Summary + PDF + Gmail + Backup + Lightbox
-=============================================================== -->
+    <label for="address">Site Address</label>
+    <textarea id="address" rows="2" placeholder="e.g., 300 Coventry Rd, Ottawa, ON K1K 4P5"></textarea>
 
-<!-- STEP 6 -->
-<section id="step6">
-  <h2><i class="fa fa-users"></i> Occupancy & Usage</h2>
-  <label for="avgOccupancy">Average Daily Occupancy</label>
-  <input type="number" id="avgOccupancy" name="avgOccupancy" min="0">
-  <label for="peakHours">Peak Usage Hours</label>
-  <input type="text" id="peakHours" name="peakHours">
-  <label for="eventFrequency">Special Event Frequency</label>
-  <select id="eventFrequency" name="eventFrequency">
-    <option value="">Select</option>
-    <option>Rarely (less than once a month)</option>
-    <option>Monthly</option><option>Weekly</option><option>Daily</option>
-  </select>
-  <div class="nav-buttons">
-    <button type="button" id="prev6">Previous</button>
-    <button type="button" id="next6">Next</button>
-  </div>
-</section>
+    <label for="facilityType">Facility Type</label>
+    <select id="facilityType" required>
+      <option value="">Select type…</option>
+      <option>Office Building</option>
+      <option>Medical / Dental Clinic</option>
+      <option>School / Educational</option>
+      <option>Retail / Storefront</option>
+      <option>Warehouse / Industrial</option>
+      <option>Gym / Fitness Center</option>
+      <option>Restaurant / Food Service</option>
+      <option>Other</option>
+    </select>
 
-<!-- STEP 7 -->
-<section id="step7">
-  <h2><i class="fa fa-broom"></i> Cleaning Scope & Operational Details</h2>
-  <label for="trashHandling">Trash Removal Responsibility</label>
-  <select id="trashHandling" name="trashHandling">
-    <option value="">Select</option>
-    <option>Client handles waste disposal</option>
-    <option>Cleaning team removes all trash</option>
-    <option>Shared responsibility</option>
-  </select>
-  <label for="consumables">Restroom Consumables Supply</label>
-  <select id="consumables" name="consumables">
-    <option value="">Select</option>
-    <option>Client-supplied</option>
-    <option>Cleaning contractor-supplied</option>
-  </select>
-  <label for="disinfectionAreas">High-Touch / Disinfection Focus Areas</label>
-  <textarea id="disinfectionAreas" name="disinfectionAreas" rows="2"></textarea>
-  <label for="onSiteEquipment">On-Site Cleaning Equipment Available</label>
-  <textarea id="onSiteEquipment" name="onSiteEquipment" rows="2"></textarea>
-  <label for="storageSpace">Storage Space Available for Supplies</label>
-  <div class="addon-grid">
-    <div class="addon-item"><input type="radio" name="storageSpace" value="Yes"><label>Yes</label></div>
-    <div class="addon-item"><input type="radio" name="storageSpace" value="Limited"><label>Limited</label></div>
-    <div class="addon-item"><input type="radio" name="storageSpace" value="No"><label>No</label></div>
-  </div>
-  <label for="waterAccess">Water Access & Drain Availability</label>
-  <select id="waterAccess" name="waterAccess">
-    <option value="">Select</option>
-    <option>Readily available</option>
-    <option>Limited access</option>
-    <option>No on-site access</option>
-  </select>
-  <div class="nav-buttons">
-    <button type="button" id="prev7">Previous</button>
-    <button type="button" id="next7">Next</button>
-  </div>
-</section>
+    <label for="hours">Operating Hours</label>
+    <input type="text" id="hours" placeholder="e.g., 8:00 AM – 8:00 PM">
 
-<!-- STEP 8 -->
-<section id="step8">
-  <h2><i class="fa fa-clipboard-list"></i> Compliance & Sustainability</h2>
-  <label for="insuranceReq">Insurance Requirements</label>
-  <select id="insuranceReq" name="insuranceReq">
-    <option value="">Select</option>
-    <option>WSIB Certificate Required</option>
-    <option>General Liability Insurance Required</option>
-    <option>Both</option><option>Not Required</option>
-  </select>
-  <label for="checkIn">Preferred Supervision / Check-in Method</label>
-  <select id="checkIn" name="checkIn">
-    <option value="">Select</option>
-    <option>Sign-in Sheet</option><option>Photo Proof via App</option><option>Verbal Confirmation</option>
-  </select>
-  <label for="compliance">Compliance Standards</label>
-  <select id="compliance" name="compliance">
-    <option value="">Select</option>
-    <option>ISO 9001</option><option>GMP / Food Safety</option>
-    <option>LEED Certification</option><option>Other</option>
-  </select>
-  <label for="ecoFriendly">Use of Eco-Friendly Cleaning Products?</label>
-  <select id="ecoFriendly" name="ecoFriendly">
-    <option value="">Select</option>
-    <option>Yes, mandatory</option><option>Preferred if available</option><option>No preference</option>
-  </select>
-  <label for="fragranceRestriction">Fragrance / Chemical Restrictions</label>
-  <select id="fragranceRestriction" name="fragranceRestriction">
-    <option value="">Select</option>
-    <option>Fragrance-Free Only</option><option>Low-VOC</option><option>No Restrictions</option>
-  </select>
-  <div class="nav-buttons">
-    <button type="button" id="prev8">Previous</button>
-    <button type="button" id="next8">Next</button>
-  </div>
-</section>
+    <label for="assessmentDate">Assessment Date</label>
+    <input type="date" id="assessmentDate">
 
-<!-- STEP 9 — PRICING ESTIMATOR -->
-<section id="step9">
-  <h2><i class="fa fa-calculator"></i> Dynamic Monthly Pricing Estimator</h2>
-  <p>Estimate your monthly cleaning cost based on work hours, payroll, and overhead.</p>
-  <label for="hoursPerDay">Hours Worked per Day</label><input type="number" id="hoursPerDay" step="0.1">
-  <label for="daysPerWeek">Days Worked per Week</label><input type="number" id="daysPerWeek" step="1">
-  <label for="hourlyRate">Employee Hourly Rate (CAD)</label><input type="number" id="hourlyRate" step="0.01">
-  <label for="overhead">Overhead Cost (%)</label><input type="number" id="overhead" step="0.1">
-  <label for="salesTax">Sales Tax (%)</label><input type="number" id="salesTax" step="0.1">
-  <label for="profit">Profit (%)</label><input type="number" id="profit" step="0.1">
+    <label for="startDate">Preferred Start Date</label>
+    <input type="date" id="startDate">
 
-  <div id="calcResults" style="margin-top:15px;padding:15px;border:1px solid #E5E7EB;border-radius:6px;background:#F9FAFB;display:none;">
-    <h3 style="margin-top:0;color:#0056D2;">Estimated Monthly Breakdown</h3>
-    <p><strong>Labor Cost:</strong> <span id="laborCost">$0.00</span></p>
-    <p><strong>Payroll Tax (10%):</strong> <span id="payrollTax">$0.00</span></p>
-    <p><strong>Profit Amount:</strong> <span id="profitAmount">$0.00</span></p>
-    <p><strong>Sales Tax Amount:</strong> <span id="salesTaxAmount">$0.00</span></p>
-    <hr><p><strong>Total Before Tax:</strong> <span id="totalBeforeTax">$0.00</span></p>
-    <p><strong>Total After Tax:</strong> <span id="totalAfterTax">$0.00</span></p>
-  </div>
+    <div class="nav-buttons">
+      <button type="button" id="next1">Next</button>
+    </div>
+  </section>
+  <!-- STEP 2 — FACILITY OVERVIEW -->
+  <section id="step2">
+    <h2><i class="fa fa-building"></i> Step 2 — Facility Overview</h2>
+    <p>Provide general information about the facility to help us calculate accurate cleaning time and cost.</p>
 
-  <div class="nav-buttons">
-    <button type="button" id="prev9">Previous</button>
-    <button type="button" id="calcEstimate"><i class="fa fa-calculator"></i> Calculate</button>
-    <button type="button" id="next9">Next</button>
-  </div>
-</section>
+    <label for="squareFootage">Total Square Footage</label>
+    <input type="number" id="squareFootage" placeholder="e.g., 10,000" required>
 
-<!-- STEP 10 — Review + PDF + Backup -->
-<section id="step10">
-  <h2><i class="fa fa-eye"></i> Review & Export Summary</h2>
-  <div id="summaryContent" style="background:#F9FAFB;border:1px solid #E5E7EB;border-radius:8px;padding:15px;margin-bottom:20px;"></div>
-  <div class="nav-buttons">
-    <button type="button" id="prev10">Previous</button>
-    <button type="button" id="downloadPDF"><i class="fa fa-file-pdf"></i> Download PDF</button>
-    <button type="button" id="emailGmail"><i class="fa fa-envelope"></i> Email via Gmail</button>
-  </div>
-  <div class="nav-buttons">
-    <button type="button" id="exportJSON"><i class="fa fa-download"></i> Backup (JSON)</button>
-    <input type="file" id="importJSON" accept="application/json" hidden>
-    <button type="button" id="importBtn"><i class="fa fa-upload"></i> Import Backup</button>
-  </div>
-</section>
-  
-</form>
+    <label for="floors">Number of Floors</label>
+    <input type="number" id="floors" placeholder="e.g., 3" min="1">
+
+    <label for="frequency">Cleaning Frequency</label>
+    <select id="frequency" required>
+      <option value="">Select frequency…</option>
+      <option value="Daily">Daily</option>
+      <option value="Weekly">Weekly</option>
+      <option value="Bi-Weekly">Bi-Weekly</option>
+      <option value="Monthly">Monthly</option>
+      <option value="One-Time">One-Time Cleaning</option>
+    </select>
+
+    <label for="flooringType">Primary Flooring Type</label>
+    <select id="flooringType">
+      <option value="">Select type…</option>
+      <option>Tile</option>
+      <option>Carpet</option>
+      <option>Vinyl</option>
+      <option>Concrete</option>
+      <option>Mixed</option>
+    </select>
+
+    <label for="accessNotes">Access & Security Notes</label>
+    <textarea id="accessNotes" rows="2" placeholder="e.g., Security badge required, alarm code, entry process..."></textarea>
+
+    <div class="nav-buttons">
+      <button type="button" id="prev2">Previous</button>
+      <button type="button" id="next2">Next</button>
+    </div>
+  </section>
+
+  <!-- STEP 3 — AREA-BY-AREA INSPECTION -->
+  <section id="step3">
+    <h2><i class="fa fa-clipboard-check"></i> Step 3 — Area-by-Area Inspection</h2>
+    <p>Inspect each main area, add your notes, and upload up to five photos for documentation.</p>
+
+    <!-- FRONT DESK -->
+    <div class="inspection-area">
+      <h3><i class="fa fa-receipt"></i> Front Desk / Reception</h3>
+      <label for="frontDeskNotes">Inspection Notes</label>
+      <textarea id="frontDeskNotes" rows="2" placeholder="e.g., Fingerprints on reception glass, dust on counter..."></textarea>
+
+      <label for="frontDeskPhotos">Upload Photos (max 5)</label>
+      <input type="file" id="frontDeskPhotos" accept="image/*" multiple>
+      <div class="photo-grid" id="frontDeskPreview"></div>
+    </div>
+
+    <!-- OFFICES -->
+    <div class="inspection-area">
+      <h3><i class="fa fa-briefcase"></i> Offices / Workspaces</h3>
+      <label for="officeNotes">Inspection Notes</label>
+      <textarea id="officeNotes" rows="2" placeholder="e.g., Dust on desks, debris under chairs..."></textarea>
+
+      <label for="officePhotos">Upload Photos (max 5)</label>
+      <input type="file" id="officePhotos" accept="image/*" multiple>
+      <div class="photo-grid" id="officePreview"></div>
+    </div>
+
+    <!-- CLASSROOMS -->
+    <div class="inspection-area">
+      <h3><i class="fa fa-chalkboard-teacher"></i> Classrooms</h3>
+      <label for="classroomNotes">Inspection Notes</label>
+      <textarea id="classroomNotes" rows="2" placeholder="e.g., Stains on desks, smudges on whiteboard..."></textarea>
+
+      <label for="classroomPhotos">Upload Photos (max 5)</label>
+      <input type="file" id="classroomPhotos" accept="image/*" multiple>
+      <div class="photo-grid" id="classroomPreview"></div>
+    </div>
+
+    <!-- STAIRWELLS -->
+    <div class="inspection-area">
+      <h3><i class="fa fa-stairs"></i> Stairwells</h3>
+      <label for="stairwellNotes">Inspection Notes</label>
+      <textarea id="stairwellNotes" rows="2" placeholder="e.g., Dust on rails, debris in corners..."></textarea>
+
+      <label for="stairwellPhotos">Upload Photos (max 5)</label>
+      <input type="file" id="stairwellPhotos" accept="image/*" multiple>
+      <div class="photo-grid" id="stairwellPreview"></div>
+    </div>
+
+    <!-- BATHROOMS -->
+    <div class="inspection-area">
+      <h3><i class="fa fa-toilet"></i> Bathrooms / Washrooms</h3>
+      <label for="bathroomNotes">Inspection Notes</label>
+      <textarea id="bathroomNotes" rows="2" placeholder="e.g., Grout discoloration, missing paper towels, odor issues..."></textarea>
+
+      <label for="bathroomPhotos">Upload Photos (max 5)</label>
+      <input type="file" id="bathroomPhotos" accept="image/*" multiple>
+      <div class="photo-grid" id="bathroomPreview"></div>
+    </div>
+
+    <div class="nav-buttons">
+      <button type="button" id="prev3">Previous</button>
+      <button type="button" id="next3">Next</button>
+    </div>
+  </section>
+  <!-- STEP 4 — STANDARD COMMERCIAL CLEANING -->
+  <section id="step4">
+    <h2><i class="fa fa-broom"></i> Step 4 — Standard Commercial Cleaning</h2>
+    <p>Select all applicable cleaning tasks for each section.  
+    Unchecked tasks will appear grayed-out in the review summary.</p>
+
+    <!-- GENERAL AREAS / OFFICES -->
+    <div class="task-section">
+      <h3>General Areas / Offices</h3>
+      <div class="task-list">
+        <label><input type="checkbox" name="generalTasks" value="Empty all trash bins and replace liners"> Empty all trash bins and replace liners</label>
+        <label><input type="checkbox" name="generalTasks" value="Dust desks, furniture, and fixtures"> Dust desks, furniture, and fixtures</label>
+        <label><input type="checkbox" name="generalTasks" value="Wipe down high-touch surfaces (door handles, light switches, phones)"> Wipe down high-touch surfaces (door handles, light switches, phones)</label>
+        <label><input type="checkbox" name="generalTasks" value="Vacuum carpets and rugs"> Vacuum carpets and rugs</label>
+        <label><input type="checkbox" name="generalTasks" value="Sweep and mop hard floors"> Sweep and mop hard floors</label>
+        <label><input type="checkbox" name="generalTasks" value="Spot-clean glass, mirrors, and walls"> Spot-clean glass, mirrors, and walls</label>
+      </div>
+    </div>
+
+    <!-- BATHROOMS -->
+    <div class="task-section">
+      <h3>Bathrooms / Washrooms</h3>
+      <div class="task-list">
+        <label><input type="checkbox" name="bathroomTasks" value="Clean and disinfect toilets, sinks, and urinals"> Clean and disinfect toilets, sinks, and urinals</label>
+        <label><input type="checkbox" name="bathroomTasks" value="Restock toilet paper, paper towels, and soap dispensers"> Restock toilet paper, paper towels, and soap dispensers</label>
+        <label><input type="checkbox" name="bathroomTasks" value="Wipe mirrors and fixtures"> Wipe mirrors and fixtures</label>
+        <label><input type="checkbox" name="bathroomTasks" value="Sweep and mop floors with disinfectant"> Sweep and mop floors with disinfectant</label>
+        <label><input type="checkbox" name="bathroomTasks" value="Empty and sanitize trash bins"> Empty and sanitize trash bins</label>
+      </div>
+    </div>
+
+    <!-- KITCHEN -->
+    <div class="task-section">
+      <h3>Kitchen</h3>
+      <div class="task-list">
+        <label><input type="checkbox" name="kitchenTasks" value="Clean and disinfect countertops and sinks"> Clean and disinfect countertops and sinks</label>
+        <label><input type="checkbox" name="kitchenTasks" value="Wipe exterior of appliances"> Wipe exterior of appliances</label>
+        <label><input type="checkbox" name="kitchenTasks" value="Clean microwaves (inside and outside)"> Clean microwaves (inside and outside)</label>
+        <label><input type="checkbox" name="kitchenTasks" value="Restock paper towels and soap dispensers"> Restock paper towels and soap dispensers</label>
+        <label><input type="checkbox" name="kitchenTasks" value="Sweep and mop kitchen floors"> Sweep and mop kitchen floors</label>
+      </div>
+    </div>
+
+    <!-- BREAKROOM -->
+    <div class="task-section">
+      <h3>Breakroom</h3>
+      <div class="task-list">
+        <label><input type="checkbox" name="breakroomTasks" value="Wipe tables and chairs"> Wipe tables and chairs</label>
+        <label><input type="checkbox" name="breakroomTasks" value="Disinfect coffee machine area"> Disinfect coffee machine area</label>
+        <label><input type="checkbox" name="breakroomTasks" value="Empty trash and recycling bins"> Empty trash and recycling bins</label>
+        <label><input type="checkbox" name="breakroomTasks" value="Vacuum or mop floors"> Vacuum or mop floors</label>
+        <label><input type="checkbox" name="breakroomTasks" value="Clean sinks and counters"> Clean sinks and counters</label>
+      </div>
+    </div>
+
+    <!-- ENTRANCES / HALLWAYS -->
+    <div class="task-section">
+      <h3>Entrances / Hallways</h3>
+      <div class="task-list">
+        <label><input type="checkbox" name="entranceTasks" value="Sweep and mop entry floors"> Sweep and mop entry floors</label>
+        <label><input type="checkbox" name="entranceTasks" value="Clean entry glass doors"> Clean entry glass doors</label>
+        <label><input type="checkbox" name="entranceTasks" value="Wipe wall marks and door frames"> Wipe wall marks and door frames</label>
+        <label><input type="checkbox" name="entranceTasks" value="Dust light fixtures and ledges"> Dust light fixtures and ledges</label>
+        <label><input type="checkbox" name="entranceTasks" value="Empty entry trash bins"> Empty entry trash bins</label>
+      </div>
+    </div>
+
+    <!-- STAIRWELLS -->
+    <div class="task-section">
+      <h3>Stairwells</h3>
+      <div class="task-list">
+        <label><input type="checkbox" name="stairTasks" value="Sweep and mop stairwell floors"> Sweep and mop stairwell floors</label>
+        <label><input type="checkbox" name="stairTasks" value="Wipe and disinfect handrails"> Wipe and disinfect handrails</label>
+        <label><input type="checkbox" name="stairTasks" value="Dust light fixtures"> Dust light fixtures</label>
+        <label><input type="checkbox" name="stairTasks" value="Clean stairwell windows"> Clean stairwell windows</label>
+        <label><input type="checkbox" name="stairTasks" value="Remove cobwebs from corners and ceilings"> Remove cobwebs from corners and ceilings</label>
+      </div>
+    </div>
+
+    <div class="nav-buttons">
+      <button type="button" id="prev4">Previous</button>
+      <button type="button" id="next4">Next</button>
+    </div>
+  </section>
+
+  <!-- STEP 5 — ADD-ON SERVICES -->
+  <section id="step5">
+    <h2><i class="fa fa-plus-circle"></i> Step 5 — Add-On Services</h2>
+    <p>Select any optional specialty cleaning services for this facility.</p>
+
+    <div class="task-section">
+      <h3>Optional Services</h3>
+      <div class="task-list">
+        <label><input type="checkbox" name="addonTasks" value="Carpet deep cleaning / extraction"> Carpet deep cleaning / extraction</label>
+        <label><input type="checkbox" name="addonTasks" value="Window cleaning (interior/exterior)"> Window cleaning (interior/exterior)</label>
+        <label><input type="checkbox" name="addonTasks" value="Floor stripping and waxing"> Floor stripping and waxing</label>
+        <label><input type="checkbox" name="addonTasks" value="High dusting and vent cleaning"> High dusting and vent cleaning</label>
+        <label><input type="checkbox" name="addonTasks" value="Disinfection fogging service"> Disinfection fogging service</label>
+        <label><input type="checkbox" name="addonTasks" value="Pressure washing (exterior)"> Pressure washing (exterior)</label>
+        <label><input type="checkbox" name="addonTasks" value="Post-construction cleanup"> Post-construction cleanup</label>
+      </div>
+    </div>
+
+    <div class="nav-buttons">
+      <button type="button" id="prev5">Previous</button>
+      <button type="button" id="next5">Next</button>
+    </div>
+  </section>
+
+  <!-- STEP 6 — FACILITY COMPOSITION -->
+  <section id="step6">
+    <h2><i class="fa fa-layer-group"></i> Step 6 — Facility Composition</h2>
+    <p>Provide detailed information about the facility’s layout and equipment access.</p>
+
+    <label for="numRestrooms">Number of Restrooms</label>
+    <input type="number" id="numRestrooms" min="0" placeholder="e.g., 6">
+
+    <label for="numKitchens">Number of Kitchens / Break Areas</label>
+    <input type="number" id="numKitchens" min="0" placeholder="e.g., 2">
+
+    <label for="ceilingType">Ceiling Type</label>
+    <select id="ceilingType">
+      <option value="">Select type…</option>
+      <option>Drop ceiling (tiles)</option>
+      <option>Open / Exposed</option>
+      <option>Drywall / Solid</option>
+      <option>Mixed</option>
+    </select>
+
+    <label for="entrances">Number of Entrances</label>
+    <input type="number" id="entrances" min="0" placeholder="e.g., 3">
+
+    <label for="cleaningHours">Preferred Cleaning Hours</label>
+    <select id="cleaningHours">
+      <option value="">Select option…</option>
+      <option>During business hours</option>
+      <option>After hours / overnight</option>
+      <option>Weekend cleaning</option>
+    </select>
+
+    <label for="storageSpace">On-site Storage for Supplies</label>
+    <select id="storageSpace">
+      <option value="">Select option…</option>
+      <option>Dedicated janitor closet</option>
+      <option>Shared space</option>
+      <option>None available</option>
+    </select>
+
+    <div class="nav-buttons">
+      <button type="button" id="prev6">Previous</button>
+      <button type="button" id="next6">Next</button>
+    </div>
+  </section>
+  <!-- STEP 7 — OCCUPANCY & USAGE -->
+  <section id="step7">
+    <h2><i class="fa fa-users"></i> Step 7 — Occupancy & Usage</h2>
+    <p>Provide information about how the facility is used and the average number of occupants during business hours.</p>
+
+    <label for="avgOccupancy">Average Number of Occupants</label>
+    <input type="number" id="avgOccupancy" placeholder="e.g., 45">
+
+    <label for="peakHours">Peak Hours / Traffic Periods</label>
+    <input type="text" id="peakHours" placeholder="e.g., 11 AM – 2 PM, 4 PM – 6 PM">
+
+    <label for="eventFrequency">Special Events or Meeting Frequency</label>
+    <select id="eventFrequency">
+      <option value="">Select frequency…</option>
+      <option>Daily</option>
+      <option>Weekly</option>
+      <option>Monthly</option>
+      <option>Occasional / Seasonal</option>
+      <option>Never</option>
+    </select>
+
+    <label for="specialConsiderations">Special Considerations (e.g., pets, high-traffic, sensitive areas)</label>
+    <textarea id="specialConsiderations" rows="2" placeholder="e.g., Dog-friendly office, 24-hour staff, etc."></textarea>
+
+    <div class="nav-buttons">
+      <button type="button" id="prev7">Previous</button>
+      <button type="button" id="next7">Next</button>
+    </div>
+  </section>
+
+  <!-- STEP 8 — CLEANING SCOPE & OPERATIONS -->
+  <section id="step8">
+    <h2><i class="fa fa-tools"></i> Step 8 — Cleaning Scope & Operations</h2>
+    <p>Outline the operational details such as trash handling, supply management, and disinfection responsibilities.</p>
+
+    <label for="trashHandling">Trash & Waste Handling</label>
+    <select id="trashHandling">
+      <option value="">Select option…</option>
+      <option>On-site dumpsters / bins</option>
+      <option>Building staff handles removal</option>
+      <option>Requires off-site disposal</option>
+    </select>
+
+    <label for="consumables">Consumables Provided By</label>
+    <select id="consumables">
+      <option value="">Select option…</option>
+      <option>Client (paper towels, soap, toilet paper)</option>
+      <option>Cleaning Company (A TO Z)</option>
+      <option>Shared Responsibility</option>
+    </select>
+
+    <label for="disinfectionAreas">High-Touch Disinfection Areas</label>
+    <textarea id="disinfectionAreas" rows="2" placeholder="e.g., Door handles, elevator buttons, kitchen surfaces"></textarea>
+
+    <label for="onSiteEquipment">On-Site Equipment Availability</label>
+    <select id="onSiteEquipment">
+      <option value="">Select option…</option>
+      <option>Vacuum, mop, and cleaning cart available</option>
+      <option>Limited equipment — bring own</option>
+      <option>No equipment available on-site</option>
+    </select>
+
+    <label for="supplyLocation">Supply Refill / Replenishment Location</label>
+    <input type="text" id="supplyLocation" placeholder="e.g., Janitor closet, Room 204, etc.">
+
+    <label for="specialInstructions">Special Instructions or Cleaning Restrictions</label>
+    <textarea id="specialInstructions" rows="2" placeholder="e.g., No strong fragrances, eco-products only, etc."></textarea>
+
+    <div class="nav-buttons">
+      <button type="button" id="prev8">Previous</button>
+      <button type="button" id="next8">Next</button>
+    </div>
+  </section>
+
+  <!-- STEP 9 — COMPLIANCE & SUSTAINABILITY -->
+  <section id="step9">
+    <h2><i class="fa fa-shield-alt"></i> Step 9 — Compliance & Sustainability</h2>
+    <p>Outline any compliance, safety, or environmental requirements for this site.</p>
+
+    <label for="insuranceReq">Insurance Requirements</label>
+    <select id="insuranceReq">
+      <option value="">Select option…</option>
+      <option>Standard Liability (2M)</option>
+      <option>High Coverage (5M+)</option>
+      <option>WSIB / CNESST Required</option>
+      <option>Proof of Insurance Required Before Start</option>
+    </select>
+
+    <label for="checkIn">Check-In / Access Control System</label>
+    <select id="checkIn">
+      <option value="">Select option…</option>
+      <option>Manual Sign-In / Logbook</option>
+      <option>Key Fob / Card System</option>
+      <option>Digital Time Tracking App</option>
+      <option>Supervisor Check-In</option>
+      <option>None Required</option>
+    </select>
+
+    <label for="compliance">Compliance Standards</label>
+    <select id="compliance">
+      <option value="">Select applicable standards…</option>
+      <option>WHMIS / SDS</option>
+      <option>Occupational Health & Safety Act (Ontario)</option>
+      <option>CNESST (Quebec)</option>
+      <option>ISO 14001 / Environmental Management</option>
+      <option>LEED / BOMA Certifications</option>
+      <option>Other</option>
+    </select>
+
+    <label for="ecoFriendly">Eco-Friendly Product Requirement</label>
+    <select id="ecoFriendly">
+      <option value="">Select option…</option>
+      <option>Yes — strictly green-certified</option>
+      <option>Preferred but not mandatory</option>
+      <option>No preference</option>
+    </select>
+
+    <label for="fragranceRestriction">Fragrance or Allergen Restrictions</label>
+    <select id="fragranceRestriction">
+      <option value="">Select option…</option>
+      <option>Fragrance-free only</option>
+      <option>Low-scent cleaning products only</option>
+      <option>No restrictions</option>
+    </select>
+
+    <label for="otherComplianceNotes">Other Compliance Notes</label>
+    <textarea id="otherComplianceNotes" rows="2" placeholder="e.g., Require PPE on site, safety orientation needed, etc."></textarea>
+
+    <div class="nav-buttons">
+      <button type="button" id="prev9">Previous</button>
+      <button type="button" id="next9">Next</button>
+    </div>
+  </section>
+  <!-- STEP 7 — OCCUPANCY & USAGE -->
+  <section id="step7">
+    <h2><i class="fa fa-users"></i> Step 7 — Occupancy & Usage</h2>
+    <p>Describe how the facility is used and typical occupancy during normal operations.</p>
+
+    <label for="avgOccupancy">Average Number of Occupants</label>
+    <input type="number" id="avgOccupancy" placeholder="e.g., 45">
+
+    <label for="peakHours">Peak Hours / Traffic Periods</label>
+    <input type="text" id="peakHours" placeholder="e.g., 11 AM – 2 PM, 4 PM – 6 PM">
+
+    <label for="eventFrequency">Special Events or Meetings Frequency</label>
+    <select id="eventFrequency">
+      <option value="">Select frequency…</option>
+      <option>Daily</option>
+      <option>Weekly</option>
+      <option>Monthly</option>
+      <option>Occasional / Seasonal</option>
+      <option>Never</option>
+    </select>
+
+    <label for="specialConsiderations">Special Considerations (e.g., high-traffic, sensitive zones)</label>
+    <textarea id="specialConsiderations" rows="2" placeholder="e.g., Reception always busy, child care area, etc."></textarea>
+
+    <div class="nav-buttons">
+      <button type="button" id="prev7">Previous</button>
+      <button type="button" id="next7">Next</button>
+    </div>
+  </section>
+
+  <!-- STEP 8 — CLEANING SCOPE & OPERATIONS -->
+  <section id="step8">
+    <h2><i class="fa fa-tools"></i> Step 8 — Cleaning Scope & Operations</h2>
+    <p>Describe operational details like trash handling, consumables, and disinfection routines.</p>
+
+    <label for="trashHandling">Trash & Waste Handling</label>
+    <select id="trashHandling">
+      <option value="">Select option…</option>
+      <option>On-site dumpsters / bins</option>
+      <option>Building staff handles removal</option>
+      <option>Requires off-site disposal</option>
+    </select>
+
+    <label for="consumables">Consumables Provided By</label>
+    <select id="consumables">
+      <option value="">Select option…</option>
+      <option>Client (paper towels, soap, toilet paper)</option>
+      <option>Cleaning Company (A TO Z)</option>
+      <option>Shared Responsibility</option>
+    </select>
+
+    <label for="disinfectionAreas">High-Touch Disinfection Areas</label>
+    <textarea id="disinfectionAreas" rows="2" placeholder="e.g., Door handles, elevator buttons, kitchen surfaces..."></textarea>
+
+    <label for="onSiteEquipment">On-Site Equipment Availability</label>
+    <select id="onSiteEquipment">
+      <option value="">Select option…</option>
+      <option>Vacuum, mop, and cleaning cart available</option>
+      <option>Limited equipment — bring own</option>
+      <option>No equipment available</option>
+    </select>
+
+    <label for="supplyLocation">Supply Refill / Replenishment Location</label>
+    <input type="text" id="supplyLocation" placeholder="e.g., Janitor closet in basement, Room 204, etc.">
+
+    <label for="specialInstructions">Special Instructions or Restrictions</label>
+    <textarea id="specialInstructions" rows="2" placeholder="e.g., Use eco products only, no bleach in kitchen area..."></textarea>
+
+    <div class="nav-buttons">
+      <button type="button" id="prev8">Previous</button>
+      <button type="button" id="next8">Next</button>
+    </div>
+  </section>
+
+  <!-- STEP 9 — COMPLIANCE & SUSTAINABILITY -->
+  <section id="step9">
+    <h2><i class="fa fa-shield-alt"></i> Step 9 — Compliance & Sustainability</h2>
+    <p>Outline compliance, safety, and environmental requirements for this site.</p>
+
+    <label for="insuranceReq">Insurance Requirements</label>
+    <select id="insuranceReq">
+      <option value="">Select option…</option>
+      <option>Standard Liability (2M)</option>
+      <option>High Coverage (5M+)</option>
+      <option>WSIB / CNESST Required</option>
+      <option>Proof of Insurance Required Before Start</option>
+    </select>
+
+    <label for="checkIn">Check-In / Access Control System</label>
+    <select id="checkIn">
+      <option value="">Select option…</option>
+      <option>Manual Logbook</option>
+      <option>Key Fob / Card System</option>
+      <option>Digital App Check-In</option>
+      <option>Supervisor Verification</option>
+      <option>None</option>
+    </select>
+
+    <label for="compliance">Compliance Standards</label>
+    <select id="compliance">
+      <option value="">Select applicable…</option>
+      <option>WHMIS / SDS</option>
+      <option>Occupational Health & Safety Act (Ontario)</option>
+      <option>CNESST (Quebec)</option>
+      <option>ISO 14001 / Environmental Management</option>
+      <option>LEED / BOMA Certification</option>
+    </select>
+
+    <label for="ecoFriendly">Eco-Friendly Product Requirement</label>
+    <select id="ecoFriendly">
+      <option value="">Select option…</option>
+      <option>Yes — green-certified products only</option>
+      <option>Preferred but not mandatory</option>
+      <option>No preference</option>
+    </select>
+
+    <label for="fragranceRestriction">Fragrance or Allergen Restrictions</label>
+    <select id="fragranceRestriction">
+      <option value="">Select option…</option>
+      <option>Fragrance-free only</option>
+      <option>Low-scent products only</option>
+      <option>No restrictions</option>
+    </select>
+
+    <label for="otherComplianceNotes">Other Compliance Notes</label>
+    <textarea id="otherComplianceNotes" rows="2" placeholder="e.g., PPE required, safety orientation needed, etc."></textarea>
+
+    <div class="nav-buttons">
+      <button type="button" id="prev9">Previous</button>
+      <button type="button" id="next9">Next</button>
+    </div>
+  </section>
+  <!-- STEP 10 — DYNAMIC MONTHLY PRICING & CLEANING TIME ESTIMATOR -->
+  <section id="step10">
+    <h2><i class="fa fa-calculator"></i> Step 10 — Dynamic Monthly Pricing & Cleaning Time Estimator</h2>
+    <p>Calculate total cleaning hours, costs, and pricing automatically based on facility data.</p>
+
+    <div class="calc-grid">
+      <!-- LEFT: INPUTS -->
+      <div class="calc-inputs">
+        <label>Cleaning Type</label>
+        <select id="cleaningType">
+          <option value="standard" selected>Standard (All Tasks)</option>
+          <option value="basic">Basic (Light Routine)</option>
+          <option value="deep">Deep (Detailed Cleaning)</option>
+        </select>
+
+        <label>Crew Size</label>
+        <input type="number" id="crewSize" min="1" value="1">
+
+        <label>Travel / Setup Time (hours per job)</label>
+        <input type="number" id="setupTime" step="0.1" value="0.5">
+
+        <label>Productivity (sq ft per hour per cleaner)</label>
+        <input type="number" id="productivity" step="10" value="333">
+
+        <label>Cleaning Frequency (auto-filled from Step 2)</label>
+        <select id="cleanFrequency">
+          <option value="1" selected>One-Time Cleaning</option>
+          <option value="0.9">Weekly Contract (-10%)</option>
+          <option value="0.8">Bi-Weekly Contract (-20%)</option>
+          <option value="0.7">Daily Contract (-30%)</option>
+        </select>
+
+        <label>Employee Hourly Rate (CAD)</label>
+        <input type="number" id="hourlyRate" step="0.01" value="17.60">
+
+        <label>Overhead Cost (%)</label>
+        <input type="number" id="overhead" step="0.1" placeholder="e.g., 15">
+
+        <label>Profit Margin (%)</label>
+        <input type="number" id="profit" step="0.1" placeholder="e.g., 30">
+
+        <label>Sales Tax (%)</label>
+        <input type="number" id="salesTax" step="0.1" placeholder="e.g., 13">
+
+        <h3 style="color:#004AAD;margin-top:20px;">Optional Add-On Services</h3>
+        <div id="addonsList" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:6px;">
+          <label><input type="checkbox" class="addon" data-rate="0.05"> Carpet Extraction (+ $0.05 /sq ft)</label>
+          <label><input type="checkbox" class="addon" data-rate="0.03"> Window Cleaning (+ $0.03 /sq ft)</label>
+          <label><input type="checkbox" class="addon" data-rate="0.10"> Floor Strip & Wax (+ $0.10 /sq ft)</label>
+          <label><input type="checkbox" class="addon" data-rate="0.02"> High Dusting / Vents (+ $0.02 /sq ft)</label>
+          <label><input type="checkbox" class="addon" data-rate="0.04"> Disinfection Fogging (+ $0.04 /sq ft)</label>
+        </div>
+
+        <p id="addonsSummary" style="color:#004AAD;font-weight:500;display:none;">
+          Add-Ons Selected: <span id="addonCount">0</span> | Extra Rate: $<span id="addonRate">0.00</span> /sq ft
+        </p>
+
+        <div class="nav-buttons">
+          <button type="button" id="prev10">Previous</button>
+          <button type="button" id="calcTime"><i class="fa fa-stopwatch"></i> Calculate</button>
+          <button type="button" id="next10">Next</button>
+        </div>
+      </div>
+
+      <!-- RIGHT: RESULTS -->
+      <div class="calc-results">
+        <div id="timeResults" style="display:none;">
+          <h3><i class="fa fa-clock"></i> Estimated Cleaning Time & Pricing</h3>
+          <p><strong>Total Cleaning Hours:</strong> <span id="totalCleaningHours">0</span> hrs</p>
+          <p><strong>Per Cleaner:</strong> <span id="perCleanerHours">0</span> hrs</p>
+          <p><strong>Labor Cost:</strong> <span id="laborCost">$0.00</span></p>
+          <p><strong>Overhead Cost:</strong> <span id="overheadCost">$0.00</span></p>
+          <p><strong>Profit Amount:</strong> <span id="profitAmount">$0.00</span></p>
+          <p><strong>Total Estimated Cost (Before Tax):</strong> <span id="totalBeforeTax">$0.00</span></p>
+          <p><strong>Sales Tax:</strong> <span id="salesTaxAmount">$0.00</span></p>
+          <hr>
+          <p><strong>Total Estimated Cost (After Tax):</strong> <span id="totalAfterTax">$0.00</span></p>
+        </div>
+
+        <p id="ratePerSqFt" style="display:none;background:linear-gradient(90deg,#004AAD,#00C2FF);color:#fff;padding:10px;border-radius:8px;text-align:center;font-weight:600;margin-top:12px;">
+          Estimated Rate: <span id="rateValue">$0.00</span> / sq ft — <span id="rateLabel">Standard Cleaning</span>
+        </p>
+
+        <div id="summaryCard" style="display:none;background:#F8FAFB;border:1px solid #E5E7EB;border-radius:8px;padding:15px;margin-top:10px;">
+          <p><strong>Profit Margin:</strong> <span id="profitMarginValue">0%</span></p>
+          <p><strong>Revenue Per Hour:</strong> <span id="revenuePerHour">$0.00 / hr</span></p>
+          <p><em style="font-size:0.85rem;color:#6B7280;">Note: If Profit Margin shows red, it’s below 20% — increase hourly rate or reduce overhead for better profitability.</em></p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- STEP 11 — REVIEW & EXPORT SUMMARY -->
+  <section id="step11">
+    <h2><i class="fa fa-file-invoice"></i> Step 11 — Review & Export Summary</h2>
+    <p>Review the collected data, then export or email a professional summary.</p>
+
+    <div id="summaryContent"
+         style="border:1px solid var(--border);border-radius:8px;padding:20px;background:var(--surface);
+                max-height:500px;overflow-y:auto;"></div>
+
+    <div class="nav-buttons">
+      <button type="button" id="prev11">Previous</button>
+      <button type="button" class="secondary-btn" id="downloadPDF">
+        <i class="fa fa-download"></i> Download PDF
+      </button>
+      <button type="button" id="emailGmail"><i class="fa fa-envelope"></i> Email via Gmail</button>
+      <button type="button" class="reset-btn" id="resetForm"><i class="fa fa-trash"></i> Reset Form</button>
+    </div>
+  </section>
+
 </main>
-<footer>© 2025 A TO Z Cleaning Expert Ltd. — All rights reserved.</footer>
 
-<!-- =================== Image Lightbox Viewer =================== -->
-<div id="lightboxOverlay">
-  <button id="lightboxPrev" class="lightboxNav"><i class="fa fa-chevron-left"></i></button>
-  <div id="lightboxContent">
-    <img id="lightboxImg" src="" alt="Inspection Photo">
-    <div id="lightboxCaption"></div>
-  </div>
-  <button id="lightboxNext" class="lightboxNav"><i class="fa fa-chevron-right"></i></button>
+<!-- LIGHTBOX -->
+<div id="photoLightbox">
+  <button id="lightboxPrev"><i class="fa fa-chevron-left"></i></button>
+  <img id="lightboxImg" src="" alt="Inspection Photo">
+  <button id="lightboxNext"><i class="fa fa-chevron-right"></i></button>
+  <div id="lightboxCaption"></div>
 </div>
 
-<!-- ============================================================
- JavaScript Logic
-=============================================================== -->
-<script>
-const totalSteps=10;let currentStep=1;
-const titles=["Client Information","Facility Overview","Area Inspection","Add-On Services","Facility Composition","Occupancy & Usage","Cleaning Scope","Compliance & Sustainability","Pricing Estimator","Review & Export"];
+<!-- FOOTER -->
+<footer>
+  <p><strong>A TO Z CLEANING EXPERT LTD.</strong><br>
+     300 Coventry Road Suite 401, Ottawa ON K1K 4P5<br>
+     <a href="mailto:contact@atozcleaningexpert.com">contact@atozcleaningexpert.com</a> | 
+     <a href="tel:+16135054688">+1 (613) 505-4688</a><br>
+     <a href="https://www.atozcleaningexpert.ca">www.atozcleaningexpert.ca</a></p>
+  <p>© 2025 A TO Z Cleaning Expert Ltd. All Rights Reserved.</p>
+</footer>
 
-/* ---------- Navigation + Validation ---------- */
-function validateStep(step){
-  const s=document.getElementById(`step${step}`);
-  const req=s.querySelectorAll("[required]");
-  for(const f of req){if(!f.value.trim()){f.focus();return false;}}
-  return true;
-}
+<!-- PDF + LOGIC -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+/* ============================================================
+   A TO Z CLEANING EXPERT LTD. — v4.1 FINAL UNIFIED SCRIPT
+   ============================================================ */
+
+/* ---------- NAVIGATION ---------- */
+let currentStep = 1, totalSteps = 11;
 function showStep(step){
-  document.querySelectorAll("section").forEach(e=>e.classList.remove("active"));
-  document.getElementById(`step${step}`).classList.add("active");
+  document.querySelectorAll("main section").forEach(s=>s.classList.remove("active"));
+  const target=document.getElementById("step"+step);
+  if(target)target.classList.add("active");
   document.getElementById("progressBar").style.width=(step/totalSteps*100)+"%";
   document.getElementById("progressText").textContent=`Step ${step} of ${totalSteps}`;
-  document.getElementById("progressTitle").textContent=titles[step-1]||"";
-  currentStep=step;saveData();window.scrollTo({top:0,behavior:"smooth"});
-  if(step===10)generateSummary();
+  currentStep=step;
+  localStorage.setItem("currentStep",step);
+  if(step===11)generateSummary();
 }
 for(let i=1;i<=totalSteps;i++){
-  const n=document.getElementById(`next${i}`),p=document.getElementById(`prev${i}`);
-  if(n)n.addEventListener("click",()=>{if(validateStep(i))showStep(i+1);});
-  if(p)p.addEventListener("click",()=>showStep(i-1));
+  const n=document.getElementById("next"+i);
+  const p=document.getElementById("prev"+i);
+  if(n)n.onclick=()=>showStep(i+1);
+  if(p)p.onclick=()=>showStep(i-1);
 }
 
-/* ---------- Autosave / Load ---------- */
-function saveData(){
-  const f=document.getElementById("walkthroughForm");
-  const d=new FormData(f);let o={};d.forEach((v,k)=>o[k]=v);
-  o.step=currentStep;
-  localStorage.setItem("AtoZWalkthrough",JSON.stringify(o));
-  showToast();
-}
-function loadData(){
-  const s=localStorage.getItem("AtoZWalkthrough");if(!s)return;
-  const o=JSON.parse(s),f=document.getElementById("walkthroughForm");
-  for(const k in o){if(f.elements[k])f.elements[k].value=o[k];}
-  if(o.step)showStep(o.step);
-}
-function showToast(){
-  const t=document.getElementById("saveToast");
-  t.style.display="block";t.style.opacity="1";
-  setTimeout(()=>t.style.opacity="0",1500);
-  setTimeout(()=>t.style.display="none",1800);
-}
-window.addEventListener("load",()=>{
-  document.getElementById("assessmentDate").valueAsDate=new Date();
-  loadData();
-  if(localStorage.getItem("theme")==="dark")document.body.classList.add("dark");
-});
-document.getElementById("walkthroughForm").addEventListener("input",saveData);
-
-/* ---------- Dark Mode ---------- */
-document.getElementById("darkToggle").addEventListener("click",()=>{
+/* ---------- DARK MODE ---------- */
+document.getElementById("darkToggle").onclick=()=>{
   document.body.classList.toggle("dark");
-  localStorage.setItem("theme",document.body.classList.contains("dark")?"dark":"light");
-});
+  localStorage.setItem("darkMode",document.body.classList.contains("dark"));
+};
 
-/* ---------- Multi-Photo Upload + Preview ---------- */
-const inspectionAreas=[{id:"office"},{id:"restroom"},{id:"kitchen"},{id:"window"},{id:"floor"}];
-inspectionAreas.forEach(({id})=>{
-  const input=document.getElementById(`${id}Photos`);
-  const container=document.getElementById(`${id}Previews`);
-  input.addEventListener("change",()=>{
-    const files=[...input.files].slice(0,3);
-    container.innerHTML="";
-    let store=JSON.parse(localStorage.getItem("AtoZWalkthrough")||"{}");
-    store[`${id}PhotoDataList`]=[];
-    files.forEach(file=>{
-      const r=new FileReader();
-      r.onload=e=>{
-        const img=document.createElement("img");
-        img.src=e.target.result;
-        container.appendChild(img);
-        store[`${id}PhotoDataList`].push(e.target.result);
-        localStorage.setItem("AtoZWalkthrough",JSON.stringify(store));
-      };
-      r.readAsDataURL(file);
-    });
+/* ---------- AUTOSAVE ---------- */
+function saveForm(){
+  const data={};
+  document.querySelectorAll("input,textarea,select").forEach(el=>{
+    if(!el.id)return;
+    if(el.type==="checkbox")data[el.id]=el.checked;
+    else if(el.type!=="file")data[el.id]=el.value;
   });
-});
-window.addEventListener("load",()=>{
-  const data=JSON.parse(localStorage.getItem("AtoZWalkthrough")||"{}");
-  inspectionAreas.forEach(({id})=>{
-    const c=document.getElementById(`${id}Previews`);
-    (data[`${id}PhotoDataList`]||[]).forEach(src=>{
-      const img=document.createElement("img");img.src=src;c.appendChild(img);
-    });
-  });
-});
-
-/* ---------- Summary Generator (2-column photo grid) ---------- */
-function generateSummary(){
-  const f=document.getElementById("walkthroughForm");
-  const data=new FormData(f);
-  let html=`<h3 style='color:#0056D2;margin-top:0'>A TO Z CLEANING EXPERT LTD. – Walkthrough Summary</h3>`;
-  html+=`<h4 style='color:#004AAD'>Assessment Dates</h4>
-  <p><strong>Assessment Date:</strong> ${f.assessmentDate.value||"N/A"}</p>
-  <p><strong>Preferred Start Date:</strong> ${f.startDate.value||"N/A"}</p>
-  <p><strong>Report Generated:</strong> ${new Date().toLocaleDateString()}</p><hr>`;
-  const groups={
-    "Client & Site Information":["assessorName","clientName","contactPerson","email","phone","address","facilityType","hours"],
-    "Facility Overview":["squareFootage","floors","frequency","provider","painPoints"],
-    "Facility Composition":["numRestrooms","numKitchens","ceilingType","entrances","cleaningHours"],
-    "Occupancy & Usage":["avgOccupancy","peakHours","eventFrequency"],
-    "Cleaning Scope & Operations":["trashHandling","consumables","disinfectionAreas","onSiteEquipment","storageSpace","waterAccess"],
-    "Compliance & Sustainability":["insuranceReq","checkIn","compliance","ecoFriendly","fragranceRestriction"]
-  };
-  for(const [t,fields] of Object.entries(groups)){
-    html+=`<h4 style='color:#004AAD;margin-top:10px;'>${t}</h4>`;
-    fields.forEach(k=>{const v=f[k]?.value;if(v)html+=`<p><strong>${k.replace(/([A-Z])/g," $1")}:</strong> ${v}</p>`;});
+  localStorage.setItem("AtoZData",JSON.stringify(data));
+}
+function loadForm(){
+  const data=JSON.parse(localStorage.getItem("AtoZData")||"{}");
+  for(const k in data){
+    const el=document.getElementById(k);
+    if(!el)continue;
+    if(el.type==="checkbox")el.checked=data[k];
+    else el.value=data[k];
   }
+  if(localStorage.getItem("darkMode")==="true")document.body.classList.add("dark");
+  showStep(parseInt(localStorage.getItem("currentStep"))||1);
+}
 
-  const stored=JSON.parse(localStorage.getItem("AtoZWalkthrough")||"{}");
-  inspectionAreas.forEach(({id})=>{
-    const label=id.charAt(0).toUpperCase()+id.slice(1);
-    const notes=f[`${id}Notes`]?.value||"",obs=f[`${id}Obs`]?.value||"",list=stored[`${id}PhotoDataList`]||[];
-    if(notes||obs||list.length>0){
-      html+=`<h4 style='color:#004AAD;margin-top:10px;'>${label} Area Inspection</h4>`;
-      if(notes)html+=`<p><strong>Notes:</strong> ${notes}</p>`;
-      if(obs)html+=`<p><strong>Observations:</strong> ${obs}</p>`;
-      if(list.length>0){
-        html+=`<div style="display:flex;flex-wrap:wrap;gap:8px;">`;
-        list.forEach(img=>{html+=`<div style="flex:0 0 calc(50% - 8px);text-align:center;"><img src="${img}" style="width:100%;max-width:250px;border:1px solid #ccc;border-radius:6px;"></div>`;});
-        html+=`</div>`;
-      }
+/* ---------- PHOTO UPLOAD (MULTIPLE, MAX 5) ---------- */
+const photoStore={};
+function previewPhotos(input,previewId){
+  const preview=document.getElementById(previewId);
+  preview.innerHTML="";
+  photoStore[previewId]=[];
+  Array.from(input.files).slice(0,5).forEach(file=>{
+    const r=new FileReader();
+    r.onload=e=>{
+      const img=document.createElement("img");
+      img.src=e.target.result;
+      preview.appendChild(img);
+      photoStore[previewId].push(e.target.result);
+      saveForm();
+    };
+    r.readAsDataURL(file);
+  });
+}
+["frontDesk","office","classroom","stairwell","bathroom"].forEach(area=>{
+  const input=document.getElementById(area+"Photos");
+  if(input)input.onchange=()=>previewPhotos(input,area+"Preview");
+});
+
+/* ---------- LIGHTBOX ---------- */
+let lbIdx=0,lbList=[];
+const lb=document.getElementById("photoLightbox");
+const lbImg=document.getElementById("lightboxImg");
+const lbCap=document.getElementById("lightboxCaption");
+document.querySelectorAll(".photo-grid").forEach(grid=>{
+  grid.addEventListener("click",e=>{
+    if(e.target.tagName==="IMG"){
+      lbList=Array.from(grid.querySelectorAll("img")).map(x=>x.src);
+      lbIdx=lbList.indexOf(e.target.src);
+      lbImg.src=e.target.src;
+      lbCap.textContent=`${grid.id.replace("Preview","")} Photo ${lbIdx+1} of ${lbList.length}`;
+      lb.classList.add("active");
     }
   });
+});
+lb.onclick=e=>{if(e.target.id==="photoLightbox")lb.classList.remove("active");};
+document.getElementById("lightboxPrev").onclick=()=>{lbIdx=(lbIdx-1+lbList.length)%lbList.length;lbImg.src=lbList[lbIdx];};
+document.getElementById("lightboxNext").onclick=()=>{lbIdx=(lbIdx+1)%lbList.length;lbImg.src=lbList[lbIdx];};
+
+/* ---------- ADD-ON RATE CALC ---------- */
+function getAddons(){
+  let r=0,c=0;
+  document.querySelectorAll(".addon").forEach(a=>{
+    if(a.checked){r+=parseFloat(a.dataset.rate);c++;}
+  });
+  document.getElementById("addonCount").textContent=c;
+  document.getElementById("addonRate").textContent=r.toFixed(2);
+  document.getElementById("addonsSummary").style.display=c?"block":"none";
+  return r;
+}
+document.querySelectorAll(".addon").forEach(a=>a.onchange=getAddons);
+
+/* ---------- CLEANING FREQUENCY AUTO-SYNC ---------- */
+function syncFrequency(){
+  const val=document.getElementById("frequency").value;
+  const map={Daily:"0.7",Weekly:"0.9","Bi-Weekly":"0.8",Monthly:"1","One-Time":"1"};
+  const cleanFreq=document.getElementById("cleanFrequency");
+  if(map[val])cleanFreq.value=map[val];
+}
+document.getElementById("frequency").onchange=syncFrequency;
+
+/* ---------- CALCULATOR ---------- */
+document.getElementById("calcTime").onclick=()=>{
+  const sqft=parseFloat(document.getElementById("squareFootage").value)||0;
+  if(!sqft)return alert("Please enter total square footage in Step 2.");
+  const type=document.getElementById("cleaningType").value;
+  const crew=+document.getElementById("crewSize").value||1;
+  const setup=+document.getElementById("setupTime").value||0.5;
+  const prod=+document.getElementById("productivity").value||333;
+  const freq=+document.getElementById("cleanFrequency").value||1;
+  const rateHr=+document.getElementById("hourlyRate").value||17.6;
+  const oh=+document.getElementById("overhead").value||0;
+  const pf=+document.getElementById("profit").value||0;
+  const tax=+document.getElementById("salesTax").value||0;
+  const addon=getAddons();
+
+  let hrs=(sqft/prod)*crew+setup;
+  let rateSq=0.30,label="Standard Cleaning";
+  if(type==="basic"){hrs*=0.7;rateSq=0.21;label="Basic Cleaning";}
+  if(type==="deep"){hrs*=1.3;rateSq=0.39;label="Deep Cleaning";}
+
+  const labor=hrs*rateHr;
+  const ohAmt=labor*(oh/100);
+  const profitAmt=(labor+ohAmt)*(pf/100);
+  let subTotal=labor+ohAmt+profitAmt;
+  subTotal*=freq;
+  const taxAmt=subTotal*(tax/100);
+  const addOns=sqft*addon;
+  const total=subTotal+taxAmt+addOns;
+
+  const perCleaner=hrs/crew;
+  const margin=(profitAmt/total)*100;
+  const revHr=total/hrs;
+
+  document.getElementById("timeResults").style.display="block";
+  document.getElementById("totalCleaningHours").textContent=hrs.toFixed(2);
+  document.getElementById("perCleanerHours").textContent=perCleaner.toFixed(2);
+  document.getElementById("laborCost").textContent=`$${labor.toFixed(2)}`;
+  document.getElementById("overheadCost").textContent=`$${ohAmt.toFixed(2)}`;
+  document.getElementById("profitAmount").textContent=`$${profitAmt.toFixed(2)}`;
+  document.getElementById("totalBeforeTax").textContent=`$${subTotal.toFixed(2)}`;
+  document.getElementById("salesTaxAmount").textContent=`$${taxAmt.toFixed(2)}`;
+  document.getElementById("totalAfterTax").textContent=`$${total.toFixed(2)}`;
+  document.getElementById("ratePerSqFt").style.display="block";
+  document.getElementById("rateValue").textContent=`$${rateSq.toFixed(2)}`;
+  document.getElementById("rateLabel").textContent=label;
+  document.getElementById("summaryCard").style.display="block";
+  document.getElementById("profitMarginValue").textContent=`${margin.toFixed(1)}%`;
+  document.getElementById("revenuePerHour").textContent=`$${revHr.toFixed(2)} / hr`;
+  
+  
+  
+
+  const pm=document.getElementById("profitMarginValue");
+  pm.classList.remove("low-margin","medium-margin","high-margin");
+  if(margin<20)pm.classList.add("low-margin");
+  else if(margin<30)pm.classList.add("medium-margin");
+  else pm.classList.add("high-margin");
+
+  saveForm();
+};
+
+/* ---------- REVIEW SUMMARY ---------- */
+function generateSummary(){
+  const groups={
+    "Client Information":["assessorName","clientName","contactPerson","email","phone","address","facilityType","hours"],
+    "Facility Overview":["squareFootage","floors","frequency","flooringType","accessNotes"],
+    "Inspection Notes":["frontDeskNotes","officeNotes","classroomNotes","stairwellNotes","bathroomNotes"],
+    "Estimator":["hourlyRate","overhead","profit","salesTax"]
+  };
+  let html="";
+  for(const g in groups){
+    html+=`<h3 style='color:#004AAD;'>${g}</h3>`;
+    groups[g].forEach(id=>{
+      const el=document.getElementById(id);
+      if(el&&el.value)html+=`<p><strong>${id.replace(/([A-Z])/g," $1")}:</strong> ${el.value}</p>`;
+    });
+  }
   document.getElementById("summaryContent").innerHTML=html;
 }
 
-/* ---------- PDF Export ---------- */
-document.getElementById("downloadPDF").addEventListener("click",()=>{
-  generateSummary();
-  const element=document.getElementById("summaryContent");
-  const today=new Date().toLocaleDateString();
-  const opt={margin:0.75,filename:`AtoZ_Walkthrough_Report_${today}.pdf`,
-    image:{type:"jpeg",quality:0.98},
-    html2canvas:{scale:2,useCORS:true,scrollY:0},
-    jsPDF:{unit:"in",format:"letter",orientation:"portrait"}};
-  html2pdf().set(opt).from(element).toPdf().get("pdf").then(pdf=>{
-    const totalPages=pdf.internal.getNumberOfPages();
-    const w=pdf.internal.pageSize.getWidth(),h=pdf.internal.pageSize.getHeight();
-    for(let i=1;i<=totalPages;i++){
-      pdf.setPage(i);
-      pdf.addImage("https://atozcleaningexpert.github.io/assessment/a-to-z-logo.png","PNG",40,15,45,25);
-      pdf.setFont("helvetica","bold");pdf.setFontSize(12);pdf.setTextColor(0,86,210);
-      pdf.text("A TO Z CLEANING EXPERT LTD.",90,30);
-      pdf.setFont("helvetica","normal");pdf.setFontSize(9);pdf.setTextColor(60);
-      pdf.text("Internal Site Assessment & Client Walkthrough Report",90,42);
-      pdf.setFont("helvetica","normal");pdf.setFontSize(9);pdf.setTextColor(100);
-      pdf.text(`© 2025 A TO Z Cleaning Expert Ltd. — Page ${i} of ${totalPages}`,w/2,h-20,{align:"center"});
-      pdf.setDrawColor(230);pdf.line(40,h-25,w-40,h-25);
-    }
-    pdf.save(`AtoZ_Walkthrough_Report_${today}.pdf`);
+/* ---------- RESET ---------- */
+document.getElementById("resetForm").onclick=()=>{
+  if(confirm("Reset the entire walkthrough?")){
+    localStorage.clear();location.reload();
+  }
+};
+
+/* ---------- ADD GENERATE QUOTE BUTTON AFTER CALC ---------- */
+let pdfBtn = document.getElementById("genQuote");
+if (!pdfBtn) {
+  pdfBtn = document.createElement("button");
+  pdfBtn.id = "genQuote";
+  pdfBtn.innerHTML = '<i class="fa fa-file-pdf"></i> Generate Quote PDF';
+  document.getElementById("timeResults").appendChild(pdfBtn);
+
+  pdfBtn.addEventListener("click", () => {
+    const client = document.getElementById("clientName")?.value || "N/A";
+    const addr = document.getElementById("address")?.value || "";
+    const total = document.getElementById("totalAfterTax")?.textContent || "$0.00";
+    const rate = document.getElementById("rateValue")?.textContent || "$0.00";
+    const label = document.getElementById("rateLabel")?.textContent || "Standard Cleaning";
+
+    const quoteHTML = `
+      <div style='font-family:Poppins,sans-serif;padding:25px;'>
+        <div style='display:flex;justify-content:space-between;align-items:center;'>
+          <img src='https://atozcleaningexpert.github.io/assessment/a-to-z-logo.png' style='height:60px;'>
+          <div style='text-align:right;font-size:0.9rem;color:#6B7280;'>
+            <strong>A TO Z CLEANING EXPERT LTD.</strong><br>
+            www.atozcleaningexpert.ca<br>
+            contact@atozcleaningexpert.com
+          </div>
+        </div>
+        <hr style='margin:12px 0;border:0;border-top:2px solid #004AAD;'>
+        <h2 style='color:#004AAD;'>Cleaning Quote Summary</h2>
+        <p><strong>Client / Company:</strong> ${client}</p>
+        <p><strong>Address:</strong> ${addr}</p>
+        <p><strong>Service Type:</strong> ${label}</p>
+        <p><strong>Rate:</strong> ${rate}</p>
+        <p><strong>Total Estimated Cost (After Tax):</strong> <span style='color:#004AAD;font-size:1.2rem;'>${total}</span></p>
+        <hr>
+        <p style='font-size:0.85rem;color:#6B7280;text-align:center;'>© 2025 A TO Z Cleaning Expert Ltd. All Rights Reserved.</p>
+      </div>`;
+    html2pdf().set({
+      margin: 0.5,
+      filename: `AtoZ_Cleaning_Quote_${client.replace(/\s+/g,"_")}.pdf`,
+      image:{type:"jpeg",quality:0.98},
+      html2canvas:{scale:2},
+      jsPDF:{unit:"in",format:"letter"}
+    }).from(quoteHTML).save();
   });
-});
-
-/* ---------- Gmail Export ---------- */
-document.getElementById("emailGmail").addEventListener("click",()=>{
-  generateSummary();
-  const subject="A TO Z Walkthrough Report";
-  const html=document.getElementById("summaryContent").innerHTML
-    .replace(/<hr>/g,"").replace(/<p>/g,"<div style='margin-bottom:6px;'>").replace(/<\/p>/g,"</div>");
-  const body=encodeURIComponent(html);
-  window.open(`https://mail.google.com/mail/?view=cm&fs=1&su=${encodeURIComponent(subject)}&body=${body}&tf=1`,"_blank");
-});
-
-/* ---------- Backup Export / Import ---------- */
-document.getElementById("exportJSON").addEventListener("click",()=>{
-  const data=localStorage.getItem("AtoZWalkthrough");
-  const blob=new Blob([data],{type:"application/json"});
-  const a=document.createElement("a");
-  a.href=URL.createObjectURL(blob);a.download="AtoZ_Walkthrough_Backup.json";a.click();
-});
-document.getElementById("importBtn").addEventListener("click",()=>document.getElementById("importJSON").click());
-document.getElementById("importJSON").addEventListener("change",e=>{
-  const file=e.target.files[0];if(!file)return;
-  const r=new FileReader();
-  r.onload=()=>{localStorage.setItem("AtoZWalkthrough",r.result);loadData();};
-  r.readAsText(file);
-});
-
-/* ---------- Lightbox with Captions & Navigation ---------- */
-let lightbox=document.getElementById("lightboxOverlay");
-let lightboxImg=document.getElementById("lightboxImg");
-let lightboxCaption=document.getElementById("lightboxCaption");
-let prevBtn=document.getElementById("lightboxPrev");
-let nextBtn=document.getElementById("lightboxNext");
-let lightboxImages=[],currentIndex=0,currentArea="";
-
-function openLightbox(srcList,index=0,areaName=""){
-  lightboxImages=srcList;currentIndex=index;currentArea=areaName;
-  updateLightbox();lightbox.style.display="flex";
 }
-function updateLightbox(){
-  if(!lightboxImages.length)return;
-  lightboxImg.src=lightboxImages[currentIndex];
-  lightboxCaption.textContent=`${currentArea} — Photo ${currentIndex+1} of ${lightboxImages.length}`;
-}
-function closeLightbox(){
-  lightbox.style.display="none";lightboxImg.src="";lightboxCaption.textContent="";
-  lightboxImages=[];currentIndex=0;currentArea="";
-}
-function showNext(){if(lightboxImages.length){currentIndex=(currentIndex+1)%lightboxImages.length;updateLightbox();}}
-function showPrev(){if(lightboxImages.length){currentIndex=(currentIndex-1+lightboxImages.length)%lightboxImages.length;updateLightbox();}}
-document.addEventListener("click",e=>{
-  const c=e.target.closest(".photo-preview");
-  if(e.target.tagName==="IMG" && c){
-    const imgs=[...c.querySelectorAll("img")].map(i=>i.src);
-    const index=imgs.indexOf(e.target.src);
-    let area=c.id.replace("Previews","");area=area.charAt(0).toUpperCase()+area.slice(1);
-    openLightbox(imgs,index,area);
-  }
-});
-lightbox.addEventListener("click",e=>{if(e.target===lightbox)closeLightbox();});
-nextBtn.addEventListener("click",showNext);
-prevBtn.addEventListener("click",showPrev);
-document.addEventListener("keydown",e=>{
-  if(lightbox.style.display==="flex"){
-    if(e.key==="Escape")closeLightbox();
-    if(e.key==="ArrowRight")showNext();
-    if(e.key==="ArrowLeft")showPrev();
-  }
-});
+
+
+/* ---------- INIT ---------- */
+window.onload=loadForm;
 </script>
 </body>
 </html>
