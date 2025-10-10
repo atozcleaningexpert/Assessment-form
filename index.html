@@ -1314,6 +1314,161 @@ if (!pdfBtn) {
 
 /* ---------- INIT ---------- */
 window.onload=loadForm;
+
+
+/* ============================================================
+   PATCH FIX v2: Accurate Frequency Detection + Grouped Summary
+   ============================================================ */
+(function() {
+  const freqOptions = ["Each Visit","Weekly","Monthly","Quarterly","Annually"];
+
+  /* ---------- Create dropdown ---------- */
+  function createFrequencySelect(name, idSuffix) {
+    const select=document.createElement("select");
+    select.className="freqSelect";
+    select.dataset.group=name;
+    select.innerHTML=`<option value="">Select frequency…</option>`+
+      freqOptions.map(o=>`<option>${o}</option>`).join("");
+    Object.assign(select.style,{
+      marginLeft:"12px",marginTop:"4px",display:"inline-block",width:"180px",
+      padding:"6px 8px",fontSize:"0.85rem",border:"1px solid var(--accent)",
+      borderRadius:"6px",background:"var(--surface)",color:"var(--text)",
+      fontWeight:"400",verticalAlign:"middle",opacity:"0",transform:"translateY(6px)",
+      transition:"opacity .4s ease, transform .4s ease"
+    });
+    return select;
+  }
+
+  /* ---------- Attach dropdowns ---------- */
+  function handleCheckboxGroup(selector, groupName){
+    document.querySelectorAll(selector).forEach((cb,i)=>{
+      const freqSelect=createFrequencySelect(groupName,i);
+      const wrap=document.createElement("div");
+      Object.assign(wrap.style,{display:"flex",alignItems:"center",flexWrap:"wrap",margin:"4px 0"});
+      const label=cb.parentElement;
+      label.parentElement.insertBefore(wrap,label);
+      wrap.appendChild(label);wrap.appendChild(freqSelect);
+
+      // Restore saved value
+      const saved=localStorage.getItem(cb.id+"_freqValue");
+      if(saved) freqSelect.value=saved;
+
+      function show(defaultIfEmpty=false){
+        freqSelect.style.display="inline-block";
+        requestAnimationFrame(()=>{freqSelect.style.opacity="1";freqSelect.style.transform="translateY(0)";});
+        if(defaultIfEmpty&&!freqSelect.value){
+          freqSelect.value="Each Visit";
+          localStorage.setItem(cb.id+"_freqValue","Each Visit");
+        }
+      }
+      function hide(){freqSelect.style.opacity="0";freqSelect.style.transform="translateY(6px)";
+        setTimeout(()=>freqSelect.style.display="none",300);}
+      cb.checked?show():hide();
+
+      cb.addEventListener("change",()=>{
+        if(cb.checked)show(true);
+        else{hide();freqSelect.value="";localStorage.removeItem(cb.id+"_freqValue");}
+        saveForm();
+      });
+      freqSelect.addEventListener("change",()=>{
+        localStorage.setItem(cb.id+"_freqValue",freqSelect.value);
+        saveForm();
+      });
+    });
+  }
+
+  [
+    ["input[name='generalTasks']","general"],
+    ["input[name='bathroomTasks']","bathroom"],
+    ["input[name='kitchenTasks']","kitchen"],
+    ["input[name='breakroomTasks']","breakroom"],
+    ["input[name='entranceTasks']","entrance"],
+    ["input[name='stairTasks']","stair"],
+    ["input[name='addonTasks']","addon"],
+    ["#addonsList .addon","calcAddon"]
+  ].forEach(([s,n])=>handleCheckboxGroup(s,n));
+
+  /* ---------- Extend summary generator ---------- */
+  const oldGen=window.generateSummary;
+  window.generateSummary=function(){
+    if(typeof oldGen==="function") oldGen();
+
+    const freqGroups={};
+    freqOptions.forEach(f=>freqGroups[f]=[]);
+    const allSel="input[name='generalTasks'],input[name='bathroomTasks'],input[name='kitchenTasks'],input[name='breakroomTasks'],input[name='entranceTasks'],input[name='stairTasks'],input[name='addonTasks'],#addonsList .addon";
+
+    document.querySelectorAll(allSel).forEach(cb=>{
+      if(cb.checked){
+        const wrap=cb.closest("div");
+        const select=wrap.querySelector(".freqSelect");
+        const freq=(select&&select.value)?select.value:"Each Visit";
+        const label=cb.parentElement.textContent.trim();
+        freqGroups[freq].push(label);
+      }
+    });
+
+    const stateKey="freqGroupState";
+    const savedState=JSON.parse(localStorage.getItem(stateKey)||"{}");
+
+    let html="<h3 style='color:#004AAD;margin-top:20px;'>Grouped Cleaning Tasks by Frequency</h3>";
+    freqOptions.forEach((freq,idx)=>{
+      const list=freqGroups[freq]||[];
+      const icon=freq==="Each Visit"?"🧹":freq==="Weekly"?"📅":freq==="Monthly"?"🧼":freq==="Quarterly"?"🔄":"📆";
+      const blockId=`freqGroup_${idx}`;
+      const isOpen=savedState[freq]!==false;
+      html+=`
+        <div class="freqBlock" style="margin-top:10px;border:1px solid var(--border);border-radius:6px;">
+          <div class="freqHeader" data-target="${blockId}" data-freq="${freq}"
+               style="background:linear-gradient(90deg,#004AAD,#00C2FF);color:#fff;
+                      padding:8px 12px;font-weight:600;cursor:pointer;border-radius:6px 6px 0 0;
+                      display:flex;justify-content:space-between;align-items:center;">
+            <span>${icon} ${freq} Tasks (${list.length})</span>
+            <span class="toggleIcon">${isOpen?"−":"+"}</span>
+          </div>
+          <div id="${blockId}" class="freqContent"
+               style="padding:10px 16px;background:var(--surface);
+                      max-height:${isOpen?"800px":"0px"};overflow:hidden;
+                      transition:max-height .4s ease,opacity .4s ease;
+                      opacity:${isOpen?"1":"0"};">
+            ${list.length?list.map(t=>`<p style='margin:4px 0;'>• ${t}</p>`).join(""):
+              `<p style='margin:4px 0;color:#6B7280;'><em>No tasks assigned.</em></p>`}
+          </div>
+        </div>`;
+    });
+
+    const sum=document.getElementById("summaryContent");
+    if(sum){
+      sum.insertAdjacentHTML("beforeend",html);
+      sum.querySelectorAll(".freqHeader").forEach(h=>{
+        h.addEventListener("click",()=>{
+          const target=document.getElementById(h.dataset.target);
+          const icon=h.querySelector(".toggleIcon");
+          const freq=h.dataset.freq;
+          const isOpen=!(target.style.maxHeight==="0px"||target.style.opacity==="0");
+          if(isOpen){
+            target.style.maxHeight="0px";target.style.opacity="0";icon.textContent="+";
+            savedState[freq]=false;
+          }else{
+            target.style.maxHeight="800px";target.style.opacity="1";icon.textContent="−";
+            savedState[freq]=true;
+          }
+          localStorage.setItem(stateKey,JSON.stringify(savedState));
+        });
+      });
+    }
+  };
+
+  const style=document.createElement("style");
+  style.textContent=`
+    .freqSelect:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(0,194,255,.25);outline:none;}
+    @media(max-width:768px){.freqSelect{display:block!important;width:60%!important;margin-left:32px!important;margin-top:4px!important;}}
+    .freqHeader:hover{opacity:0.9;}
+  `;
+  document.head.appendChild(style);
+})();
+
+
+
 </script>
 </body>
 </html>
